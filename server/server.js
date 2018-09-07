@@ -20,5 +20,12 @@ app.post('/api/docs', (request, response) => {
   database.saveFile(request.body, response);
 });
 
+app.delete('/api/docs', (request, response) => {
+  database.deleteFile(request.body, response);
+});
+
+app.put('/api/docs', (request, response) => {
+  database.updateFile(request.body.id, request.body.update,response);
+});
 
 app.listen(port, () => console.log(`Server listening on port ${port}`));

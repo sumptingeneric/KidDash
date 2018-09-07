@@ -28,25 +28,48 @@ const getFiles = (details = {}, response) => { // retrieve
      return console.error(`error while retrieving files: ${err}`);
     }
     // response.statusCode(200).send(data);
-    response.send(data);
+    response.status(200).send(data);
   });
 };
 
 const saveFile = (fileDetails, response) => { // create
   let newFile = new FileModel(fileDetails);
   newFile.save(err => {
-    if (err) {
-      return console.error(`error while saving file: ${err}`);
+    if (err && err.code !== 11000) {
+      console.error(`error while saving file: ${err}`);
+      response.status(500).send(err);
+      return;
+    } else if (err && err.code === 11000) {
+      console.error(`URL already exists, cannot save file. Error: ${err}`);
+      response.status(400).send(err);
+      return;
     }
     getFiles({}, response);
   });
 };
 
-const updateFile = () => { // update
+const updateFile = (id, update, response) => { // update
+  FileModel.findByIdAndUpdate(id, update, (err, updatedFile) => {
+    if (err) {
+      console.error(`Error while updating file. Error: ${err}`);
+      response.status(500).send(err);
+      return;
+    }
+    console.log(`Updated file with previous caption: ${updatedFile.caption}`); // console.logs previous state of file
+    getFiles({}, response);
+  });
 };
 
-const deleteFile = (id) =>  { // delete
-
+const deleteFile = (id, response) => { // delete
+  FileModel.findByIdAndRemove(id, (err, deletedFile) => {
+    if (err) {
+      console.error(`Error while deleting file from database. Error: ${err}`);
+      response.status(500).send(err);
+      return;
+    }
+    console.log(`Deleted file with caption: ${deletedFile.caption}`);
+    getFiles({}, response);
+  });
 };
 
 module.exports.getFiles = getFiles;
