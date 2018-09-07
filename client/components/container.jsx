@@ -6,6 +6,7 @@ class Container extends React.Component {
     super(props);
   }
 
+  
   render() {
     return (
       <div>
@@ -15,4 +16,4 @@ class Container extends React.Component {
   }
 }
 
-exports.Container;
+export default Container;
