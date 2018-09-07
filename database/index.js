@@ -9,10 +9,14 @@ db.once('open', () => console.log('Database successfully connected'));
 
 let fileSchema = new mongoose.Schema({
   caption: String,
-  url: String,
+  url: { type: String, unique: true},
   timeStamp: { type: Date, default: Date.now },
   category: String
 });
+
+// var eventSchema = new Schema({ thing: { type: 'string', unique: true }})
+// confirm we can leave String
+
 
 let FileModel = mongoose.model('FileModel', fileSchema);
 
@@ -23,7 +27,8 @@ const getFiles = (details = {}, response) => { // retrieve
     if (err) {
      return console.error(`error while retrieving files: ${err}`);
     }
-    response.statusCode(200).send(data);
+    // response.statusCode(200).send(data);
+    response.send(data);
   });
 };
 
@@ -33,7 +38,8 @@ const saveFile = (fileDetails, response) => { // create
     if (err) {
       return console.error(`error while saving file: ${err}`);
     }
-  }).then(getFiles({}, response));
+    getFiles({}, response);
+  });
 };
 
 const updateFile = () => { // update
