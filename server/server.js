@@ -7,7 +7,7 @@ let port = 8079;
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.get('/', (request, response) => {
-  response.send('Page is loading');
+  // response.sendFile('./index.html');
 });
 
 
