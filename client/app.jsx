@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import axios from 'axios';
+
 import Header from './components/header.jsx';
 import FilterBar from './components/filterBar.jsx';
-import axios from 'axios';
+import Container from './components/container.jsx'
 
 class App extends Component {
   constructor(props) {
@@ -42,8 +44,11 @@ class App extends Component {
 
   render () {
     return (
-      <div><Header />
-      <FilterBar /></div>
+      <div>
+        <Header />
+        <FilterBar />
+        <Container />
+      </div>
     );
   }
 }
