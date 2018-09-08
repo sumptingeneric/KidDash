@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import Tiles from './tiles.jsx'
+import Admin from './admin.jsx';
 
 class Container extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  
   render() {
     return (
       <div>
-        <h1>flying with pandas</h1>
+        <Admin /> 
       </div>
     )
   }
