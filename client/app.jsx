@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import Container from './components/container.jsx'
 
 class App extends Component {
   constructor() {
@@ -10,7 +11,7 @@ class App extends Component {
   }
   render () {
     return (
-      <div>Hello World!</div>
+      <div>Hello World! <Container /> </div>
     );
   }
 }
