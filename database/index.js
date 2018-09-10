@@ -9,7 +9,8 @@ db.once('open', () => console.log('Database successfully connected'));
 
 let fileSchema = new mongoose.Schema({
   caption: String,
-  url: { type: String, unique: true},
+  doc_url: { type: String, unique: true},
+  img_url: { type: String, unique: true},
   timeStamp: { type: Date, default: Date.now },
   category: String
 });
