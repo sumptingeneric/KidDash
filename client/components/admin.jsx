@@ -33,11 +33,12 @@ class Admin extends React.Component {
 
   handleClick() {
     let fileInfo = {}
-    fileInfo.url = this.state.value;
-    fileInfo.categroy = this.state.categroy;
     fileInfo.caption = this.state.caption;
+    fileInfo.doc_url = this.state.value;
+    fileInfo.categroy = this.state.categroy;
+    
 
-    console.log(`i was clicked to send off url-->: ${fileInfo.url}`);
+    console.log(`i was clicked to send off url-->: ${fileInfo.doc_url}`);
     console.log(`this selected categroy-->: ${fileInfo.categroy}`);
     console.log(`this selected caption-->: ${fileInfo.caption}`);
 
