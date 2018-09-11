@@ -32,43 +32,73 @@ class Admin extends React.Component {
   }
 
   handleClick() {
-    let fileInfo = {}
+    let fileInfo = {};
+    fileInfo.categroy = this.state.categroy;
     fileInfo.caption = this.state.caption;
     fileInfo.doc_url = this.state.value;
-    fileInfo.categroy = this.state.categroy;
-    
 
-    console.log(`i was clicked to send off url-->: ${fileInfo.doc_url}`);
     console.log(`this selected categroy-->: ${fileInfo.categroy}`);
     console.log(`this selected caption-->: ${fileInfo.caption}`);
+    console.log(`i was clicked to send off url-->: ${fileInfo.doc_url}`);
 
     axios.post('/api/docs', { fileInfo })
     .then(res => {
       console.log(res)
-    })
+    });
   }
 
   render() {
     return (
     <div>
 
-      <h2>Hello admin select which subject you like to upload to then click the submint button</h2>
+      <h1>Hello Admin</h1>
 
-        Please input Document name -> <input type='text' onChange={this.setcaption}></input>
+      <h2>Please follow the steps to upload document.</h2>
 
-      Pick upload Categroy: <select onChange={this.setCategroy}>
-        <option value="Newsletter">Newsletter</option>
-        <option value="Sports">sports</option>
-        <option value="Teacher_Notes">Teacher_Notes</option>
-        <option value="FAQ">FAQ</option>
-        <option value="School_Events">School_Events</option>
-        <option value="After_School">After_School</option>
-      </select>
+      <h3>STEP 1</h3>
+      <label>
+          Pick upload Categroy:
+        <select onChange={this.setCategroy}>
+          <option value="Newsletter">Newsletter</option>
+          <option value="Sports">sports</option>
+          <option value="Teacher_Notes">Teacher_Notes</option>
+          <option value="FAQ">FAQ</option>
+          <option value="School_Events">School_Events</option>
+          <option value="After_School">After_School</option>
+          </select>
+      </label>
 
-      URL for google Doc -> <input type="text" value={this.state.value} onChange={this.handleChange} placeholder={this.state.placeholder} />
-      <button onClick={this.handleClick}>SUBMINT</button>
+        <br></br>
+      
+      <h3>STEP 2</h3>
+      <label>
+        Please input Document name: 
+        <input type='text' onChange={this.setcaption}></input>
+      </label>
+      
+      <br></br>
 
-      Or upload file <input type='file'></input>
+      <h3>STEP 3</h3>
+      <label>
+        URL for google Doc:
+        <input type="text" 
+        value={this.state.value} 
+        onChange={this.handleChange} 
+        placeholder={this.state.placeholder} />
+      </label>
+
+      <br></br>
+      
+      <h3>FINAL STEP</h3>
+      <button onClick={this.handleClick}>FINAL STEP</button>
+
+      {/* <br></br>
+
+      comming soon!
+      <label>
+        Or upload file 
+        <input type='file'></input> 
+      </label> */}
     </div>
     )
   }
