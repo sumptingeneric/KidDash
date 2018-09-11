@@ -4,10 +4,10 @@ const moment = require('moment');
 
 const Tile = tile => { 
     return (
-      <div className="tile" title={tile.catagory}>
+      <div className="tile" title={tile.category}>
         <div className="date">{moment(tile.timeStamp).format("MMMM Do YYYY")}</div>
         <div className="linkimg">
-          <a src={tile.url}>
+          <a src={tile.doc_url}>
             
             <img
               className="imglink"
