@@ -16,7 +16,7 @@ class App extends Component {
   }
 
   getFilesFromDatabase() {
-    var self = this;
+  //   var self = this;
   //   axios.get(
   //     '/api/docs'),
   //     .then(response) => {
@@ -27,8 +27,8 @@ class App extends Component {
   //   )
   // }
     axios.get('/api/docs') 
-      .then (function (response) { 
-        self.setState({
+      .then((response) => { 
+        this.setState({
           files: response.data
         });
         //console.log(response.data)
@@ -37,6 +37,8 @@ class App extends Component {
         console.log(error); 
       })
   };
+
+
 
   componentDidMount() {
     this.getFilesFromDatabase();
@@ -47,7 +49,7 @@ class App extends Component {
       <div>
         <Header />
         <FilterBar />
-        <Container />
+        <Container files={this.state.files} />
       </div>
     );
   }
