@@ -1,45 +1,17 @@
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
+import React from "react";
 
 
-class FilterBar extends React.Component {
-
-  showAll() {
-    alert("Show All");
-  }
-
-  showNewsletters() {
-    alert("Show only Newsletters");
-  }
-
-  showSports() {
-    alert("Show only Sports");
-  }
-
-  showTeachersNotes() {
-    alert("Show only Teachers Notes");
-  }
-
-  showSchoolEvents() {
-    alert("Show only School Events");
-  }
-
-  showFAQ() {
-    alert("Show only FAQ");
-  }
-
-  render() {
-    return (
-      <nav className="FilterBar">
-        <button class="showall" onClick={this.showAll}>Show All</button>
-        <button class="newsletters" onClick={this.showNewsletters}>Newsletters</button>
-        <button class="sports" onClick={this.showSports}>Sports</button>
-        <button class="teachersnotes" onClick={this.showTeachersNotes}>Teachers Notes</button>
-        <button class="schoolevents" onClick={this.showSchoolEvents}>School Events</button>
-        <button class="faq" onClick={this.showFAQ}>FAQ</button>
-      </nav>
-    );
-  }
+const FilterBar = props => {
+  return (
+    <nav className="filterBar">
+      <button className="showAll" onClick={() => props.getFiles()} >Show All</button>
+      <button className="newsletters" onClick={() => props.getFiles("Newsletters")} >Newsletters</button>
+      <button className="sports" onClick={() => props.getFiles("Sports")} >Sports</button>
+      <button className="teachersNotes" onClick={() => props.getFiles("Teachers_Notes")} >Teachers Notes</button>
+      <button className="schoolEvents" onClick={() => props.getFiles("School_Events")} >School Events</button>
+      <button className="faq" onClick={() => props.getFiles("FAQ")} >FAQ</button>
+    </nav>
+  );
 };
 
 
