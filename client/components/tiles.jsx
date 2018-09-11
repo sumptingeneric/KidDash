@@ -1,25 +1,31 @@
 import React, { Component } from "react";
+const moment = require('moment');
 
 
-  function Tile(props) {
+const Tile = tile => { 
     return (
-      <div className="tile" title={props.catagory}>
-        <div className="date">{props.timeStamp}</div>
+      <div className="tile" title={tile.catagory}>
+        <div className="date">{moment(tile.timeStamp).format("MMMM Do YYYY")}</div>
         <div className="linkimg">
-          <a href={props.doc_url}>
+          <a src={tile.url}>
+            
             <img
               className="imglink"
               alt="happycoding"
-              src={props.img_url}
+              src={tile.img_url}
               width="100"
               height="100"
             />
           </a>
         </div>
-        <h3 className="tileCaption">{props.caption}</h3>
+        <h3 className="tileCaption">{tile.caption}</h3>
       </div>
     );
   };
 
 
 export default Tile;
+
+/**
+ * to change september to sept change from "MMMM Do YYYY" to "MMM Do YYYY"
+ */
