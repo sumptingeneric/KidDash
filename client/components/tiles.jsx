@@ -1,13 +1,14 @@
 import React, { Component } from "react";
-
+const moment = require('moment');
 
 
 const Tile = tile => { 
     return (
       <div className="tile" title={tile.catagory}>
-        <div className="date">{tile.timeStamp}</div>
+        <div className="date">{moment(tile.timeStamp).format("MMMM Do YYYY")}</div>
         <div className="linkimg">
-          <a href={tile.doc_url}>
+          <a src={tile.url}>
+            
             <img
               className="imglink"
               alt="happycoding"
@@ -24,3 +25,7 @@ const Tile = tile => {
 
 
 export default Tile;
+
+/**
+ * to change september to sept change from "MMMM Do YYYY" to "MMM Do YYYY"
+ */
