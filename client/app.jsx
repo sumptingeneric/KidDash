@@ -15,43 +15,36 @@ class App extends Component {
     this.getFilesFromDatabase = this.getFilesFromDatabase.bind(this);
   }
 
-  getFilesFromDatabase() {
-  //   var self = this;
-  //   axios.get(
-  //     '/api/docs'),
-  //     .then(response) => {
-  //       self.setState({
-  //         files: response;
-  //       })
-  //     }
-  //   )
-  // }
-    axios.get('/api/docs') 
-      .then((response) => { 
+  getFilesFromDatabase(category) {
+    let endpoint = '/api/docs/';
+    if (category !== undefined) {
+      endpoint += category;
+      console.log(endpoint);
+    } 
+    axios.get(endpoint)
+      .then((response) => {
         this.setState({
           files: response.data
         });
-        //console.log(response.data)
-      }) 
-      .catch (function (error) { 
-        console.log(error); 
+      })
+      .catch (function (error) {
+        console.log(error);
       })
   };
-
-
 
   componentDidMount() {
     this.getFilesFromDatabase();
   }
 
+
   render () {
     return (
       <div>
         <Header />
-        <FilterBar />
+        <FilterBar getFiles={this.getFilesFromDatabase} />
         <Container files={this.state.files} />
       </div>
     );
   }
-}
+};
 ReactDOM.render(<App />, document.getElementById('App'));
