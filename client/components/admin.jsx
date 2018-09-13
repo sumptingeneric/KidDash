@@ -10,11 +10,11 @@ class Admin extends React.Component {
       caption: '',
       placeholder: 'file to be uploaded',
       value: '',
-      categroy: 'Newsletter'      
+      category: 'Newsletters'      
     }
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.setCategroy = this.setCategroy.bind(this);
+    this.setCategory = this.setCategory.bind(this);
     this.setcaption = this.setcaption.bind(this);
 
   }
@@ -23,8 +23,8 @@ class Admin extends React.Component {
     this.setState({caption: event.target.value})
   }
 
-  setCategroy(event) {
-    this.setState({categroy: event.target.value})
+  setCategory(event) {
+    this.setState({ category: event.target.value})
   }
 
   handleChange(event) {
@@ -33,11 +33,12 @@ class Admin extends React.Component {
 
   handleClick() {
     let fileInfo = {};
-    fileInfo.categroy = this.state.categroy;
+    fileInfo.category = this.state.category;
     fileInfo.caption = this.state.caption;
     fileInfo.doc_url = this.state.value;
+    // fileInfo.img_url = 'uurlto somewere'
 
-    console.log(`this selected categroy-->: ${fileInfo.categroy}`);
+    console.log(`this selected category-->: ${fileInfo.category}`);
     console.log(`this selected caption-->: ${fileInfo.caption}`);
     console.log(`i was clicked to send off url-->: ${fileInfo.doc_url}`);
 
@@ -57,9 +58,9 @@ class Admin extends React.Component {
 
       <h3>STEP 1</h3>
       <label>
-          Pick upload Categroy:
-        <select onChange={this.setCategroy}>
-          <option value="Newsletter">Newsletter</option>
+          Pick upload Category:
+        <select onChange={this.setCategory}>
+          <option value="Newsletters">Newsletter</option>
           <option value="Sports">sports</option>
           <option value="Teacher_Notes">Teacher_Notes</option>
           <option value="FAQ">FAQ</option>
