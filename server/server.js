@@ -26,8 +26,9 @@ app.get('/api/docs/:category', (request, response) => {
   database.getFiles(request.params, response);
 });
 
-app.post('/api/docs', (request, response) => {
-  database.saveFile(request.body, response);
+app.post('/api/docs/', (request, response) => {
+  // console.log(request.body.fileInfo);
+  database.saveFile(request.body.fileInfo, response);
 });
 
 app.delete('/api/docs', (request, response) => {
