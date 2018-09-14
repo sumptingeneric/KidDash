@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
+let uristring = process.env.MONGOLAB_URI || 'mongodb://localhost/KidDashDatabase';
 
-mongoose.connect('mongodb://localhost/KidDashDatabase');
+mongoose.connect(uristring, {useNewUrlParser: true});
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'db connection error'));
 db.once('open', () => console.log('Database successfully connected'));
