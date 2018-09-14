@@ -1,8 +1,11 @@
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
+// accommodates connection to either Heroku or localhost
+let uristring = process.env.MONGOLAB_URI || 'mongodb://localhost/KidDashDatabase';
 
-mongoose.connect('mongodb://localhost/KidDashDatabase');
+// second argument avoids console warnings
+mongoose.connect(uristring, {useNewUrlParser: true});
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'db connection error'));
 db.once('open', () => console.log('Database successfully connected'));
@@ -15,27 +18,22 @@ let fileSchema = new mongoose.Schema({
   category: String
 });
 
-// var eventSchema = new Schema({ thing: { type: 'string', unique: true }})
-// confirm we can leave String
-
 
 let FileModel = mongoose.model('FileModel', fileSchema);
 
-const getFiles = (details = {}, response) => { // retrieve
-  // when GET request is invoked,
-  // take this response parameter
+// retrieve files from db for front end
+const getFiles = (details = {}, response) => {
   FileModel.find(details).exec((err, data) => {
     if (err) {
      return console.error(`error while retrieving files: ${err}`);
     }
-    // response.statusCode(200).send(data);
     response.status(200).send(data);
   });
 };
 
-const saveFile = (fileDetails, response) => { // create
-
-  console.log(`fileDetails from db on line 37 ${JSON.stringify(fileDetails)}`);
+// save a new record into the db
+const saveFile = (fileDetails, response) => {
+  // console.log(`fileDetails from db on line 37 ${JSON.stringify(fileDetails)}`);
   let newFile = new FileModel(fileDetails);
   newFile.save(err => {
     if (err && err.code !== 11000) {
@@ -51,6 +49,7 @@ const saveFile = (fileDetails, response) => { // create
   });
 };
 
+// update the category or caption for a record
 const updateFile = (id, update, response) => { // update
   FileModel.findByIdAndUpdate(id, update, (err, updatedFile) => {
     if (err) {
@@ -58,11 +57,12 @@ const updateFile = (id, update, response) => { // update
       response.status(500).send(err);
       return;
     }
-    console.log(`Updated file with previous caption: ${updatedFile.caption}`); // console.logs previous state of file
+    // console.log(`Updated file with previous caption: ${updatedFile.caption}`); // console.logs previous state of file
     getFiles({}, response);
   });
 };
 
+// delete a record
 const deleteFile = (id, response) => { // delete
   FileModel.findByIdAndRemove(id, (err, deletedFile) => {
     if (err) {
@@ -70,7 +70,7 @@ const deleteFile = (id, response) => { // delete
       response.status(500).send(err);
       return;
     }
-    console.log(`Deleted file with caption: ${deletedFile.caption}`);
+    // console.log(`Deleted file with caption: ${deletedFile.caption}`);
     getFiles({}, response);
   });
 };
