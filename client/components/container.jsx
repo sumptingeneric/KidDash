@@ -24,7 +24,3 @@ const Container = props => {
 
 
 export default Container;
-
-{/* <div className='admin-page'>
-  <Admin />
-</div> */}

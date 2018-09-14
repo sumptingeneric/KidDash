@@ -5,14 +5,19 @@ import axios from 'axios';
 import Header from './components/header.jsx';
 import FilterBar from './components/filterBar.jsx';
 import Container from './components/container.jsx'
+import Admin from "./components/admin.jsx";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      view : 'main',
       files:[]
     }
     this.getFilesFromDatabase = this.getFilesFromDatabase.bind(this);
+    this.changeView = this.changeView.bind(this);
+    this.renderView = this.renderView.bind(this);
+
   }
 
   getFilesFromDatabase(category) {
@@ -36,13 +41,40 @@ class App extends Component {
     this.getFilesFromDatabase();
   }
 
+  changeView(option) {
+    this.setState({
+      view: option,
+    })
+  }
 
-  render () {
-    return (
-      <div>
+  renderView() {
+    const { view } = this.state;
+    
+    if (view === 'Admin') {
+      return <Admin />
+    } else if (view === 'main') {
+      return (
+        <div>
         <Header />
         <FilterBar getFiles={this.getFilesFromDatabase} />
         <Container files={this.state.files} />
+        </div>
+      )
+    }
+  }
+  
+  render () {
+    return (
+      <div>
+        <button type='button' onClick={() => this.changeView('Admin')} >Admin</button>
+        <button type='button' onClick={() => this.changeView('main')}>Home</button>
+        {/* <Header /> 
+        <FilterBar getFiles={this.getFilesFromDatabase} />
+        <Container  files={this.state.files} /> */}
+
+        
+        {this.renderView()}
+        
       </div>
     );
   }
