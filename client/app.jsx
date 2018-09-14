@@ -5,19 +5,16 @@ import axios from 'axios';
 import Header from './components/header.jsx';
 import FilterBar from './components/filterBar.jsx';
 import Container from './components/container.jsx'
-import Admin from "./components/admin.jsx";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      view : 'main',
-      files:[]
+      files: [],
+      view: 'home'
     }
     this.getFilesFromDatabase = this.getFilesFromDatabase.bind(this);
     this.changeView = this.changeView.bind(this);
-    this.renderView = this.renderView.bind(this);
-
   }
 
   getFilesFromDatabase(category) {
@@ -25,14 +22,15 @@ class App extends Component {
     if (category !== undefined) {
       endpoint += category;
       console.log(endpoint);
-    } 
+    }
     axios.get(endpoint)
       .then((response) => {
         this.setState({
           files: response.data
         });
+        console.log(this.state.files);
       })
-      .catch (function (error) {
+      .catch(function (error) {
         console.log(error);
       })
   };
@@ -43,38 +41,15 @@ class App extends Component {
 
   changeView(option) {
     this.setState({
-      view: option,
+      view: option
     })
   }
 
-  renderView() {
-    const { view } = this.state;
-    
-    if (view === 'Admin') {
-      return <Admin />
-    } else if (view === 'main') {
-      return (
-        <div>
-        <Header />
-        <FilterBar getFiles={this.getFilesFromDatabase} />
-        <Container files={this.state.files} />
-        </div>
-      )
-    }
-  }
-  
-  render () {
+  render() {
     return (
       <div>
-        <button type='button' onClick={() => this.changeView('Admin')} >Admin</button>
-        <button type='button' onClick={() => this.changeView('main')}>Home</button>
-        {/* <Header /> 
-        <FilterBar getFiles={this.getFilesFromDatabase} />
-        <Container  files={this.state.files} /> */}
-
-        
-        {this.renderView()}
-        
+        <Header changeView={this.changeView} getFiles={this.getFilesFromDatabase} view={this.state.view} />
+        <Container files={this.state.files} view={this.state.view} />
       </div>
     );
   }

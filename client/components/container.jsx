@@ -12,8 +12,7 @@ const Container = props => {
     else if (props.view === "admin") {
       return <Admin />
     }
-    // make an else to handle a single tile view
-  } // close renderView
+  } 
 
   return (
     <div>

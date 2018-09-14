@@ -112,7 +112,8 @@ class Header extends React.Component {
     super(props);
     this.state = {
       open: false,
-      anchor: 'left'
+      anchor: 'left',
+      view: 'home'
     };
     this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
     this.handleDrawerClose = this.handleDrawerClose.bind(this);
@@ -168,19 +169,9 @@ class Header extends React.Component {
     }
     return (
       <div className={styles.root}>
-        <TextField
-          id="persistent-anchor"
-          select
-          label="Anchor"
-          value={anchor}
-          onChange={this.handleChangeAnchor}
-          margin="normal"
-          >
-          <MenuItem value="left">left</MenuItem>
-          <MenuItem value="right">right</MenuItem>
-        </TextField>
+        
         <div className={styles.appFrame}>
-          <div className="Header"style={{ display: "flex", alignItems: 'flex-end', marginBottom: 30}}>
+          <div className="Header"style={{ display: "flex", alignItems: 'flex-end', marginBottom: 75}}>
             <AppBar style={{backgroundColor: "Blue"}} className={classNames(styles.appBar, {
               [styles.appBarShift]: open,
               [styles[`appBarShift-${anchor}`]]: open,
@@ -210,6 +201,5 @@ class Header extends React.Component {
       </div>);
   }
 }
-
 
 export default Header;
