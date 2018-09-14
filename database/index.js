@@ -1,15 +1,10 @@
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
-<<<<<<< HEAD
-let uristring = process.env.MONGOLAB_URI || 'mongodb://localhost/KidDashDatabase';
-
-=======
 // accommodates connection to either Heroku or localhost
 let uristring = process.env.MONGOLAB_URI || 'mongodb://localhost/KidDashDatabase';
 
 // second argument avoids console warnings
->>>>>>> b3ab76c96e4eb8c6671a0c5d8be41ddaaddaf6b8
 mongoose.connect(uristring, {useNewUrlParser: true});
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'db connection error'));

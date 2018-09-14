@@ -4,10 +4,7 @@ const app = express();
 const database = require('../database');
 const bodyParser = require('body-parser');
 
-<<<<<<< HEAD
-=======
 // accommodates connection to either Heroku or localhost
->>>>>>> b3ab76c96e4eb8c6671a0c5d8be41ddaaddaf6b8
 let port = process.env.PORT || 8079;
 
 app.use(express.static(path.join(__dirname, '../public')));
