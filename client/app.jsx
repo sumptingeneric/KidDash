@@ -5,14 +5,18 @@ import axios from 'axios';
 import Header from './components/header.jsx';
 import FilterBar from './components/filterBar.jsx';
 import Container from './components/container.jsx'
+import Admin from "./components/admin.jsx";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      files:[]
+      view: 'main',
+      files: []
     }
     this.getFilesFromDatabase = this.getFilesFromDatabase.bind(this);
+    this.changeView = this.changeView.bind(this);
+    this.renderView = this.renderView.bind(this);
   }
 
   getFilesFromDatabase(category) {
@@ -20,14 +24,14 @@ class App extends Component {
     if (category !== undefined) {
       endpoint += category;
       console.log(endpoint);
-    } 
+    }
     axios.get(endpoint)
       .then((response) => {
         this.setState({
           files: response.data
         });
       })
-      .catch (function (error) {
+      .catch(function (error) {
         console.log(error);
       })
   };
@@ -36,15 +40,36 @@ class App extends Component {
     this.getFilesFromDatabase();
   }
 
+  changeView(option) {
+    this.setState({
+      view: option,
+    })
+  }
 
-  render () {
-    return (
+  renderView() {
+    const {view} = this.state;
+    if (view === 'Admin') {
+      return <Admin />
+    } else if (view === 'main') {
+      return ( 
+        <div>
+          <Header getFiles = {this.getFilesFromDatabase}/> 
+          <Container files = {this.state.files}/> 
+        </div>
+      );
+    }
+  }
+
+  render() {
+    return ( 
       <div>
-        <Header />
-        <FilterBar getFiles={this.getFilesFromDatabase} />
-        <Container files={this.state.files} />
+        <button type='button' onClick={() => this.changeView('Admin')}> Admin </button> 
+        <button type='button'onClick={() => this.changeView('main')}> Home </button> 
+          {this.renderView()}
       </div>
     );
   }
 };
-ReactDOM.render(<App />, document.getElementById('App'));
+
+
+ReactDOM.render( < App / > , document.getElementById('App'));
