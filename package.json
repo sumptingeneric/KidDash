@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack -d --watch"
+    "build": "webpack -d --watch",
+    "start": "nodemon .server/server.js"
   },
   "repository": {
     "type": "git",

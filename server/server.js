@@ -1,10 +1,11 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const database = require('../database'); // trying without filename
+const database = require('../database');
 const bodyParser = require('body-parser');
 
-let port = 8079;
+// accommodates connection to either Heroku or localhost
+let port = process.env.PORT || 8079;
 
 app.use(express.static(path.join(__dirname, '../public')));
 
