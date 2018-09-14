@@ -4,7 +4,7 @@ const app = express();
 const database = require('../database'); // trying without filename
 const bodyParser = require('body-parser');
 
-let port = 8079;
+let port = process.env.PORT || 8079;
 
 app.use(express.static(path.join(__dirname, '../public')));
 
