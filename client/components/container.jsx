@@ -9,14 +9,9 @@ const Container = props => {
   return (
     <div>
       <TilesList files={props.files} />
-      {/* <Admin /> */}
     </div> 
   ) 
 }
 
 
 export default Container;
-
-{/* <div className='admin-page'>
-  <Admin />
-</div> */}
