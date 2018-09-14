@@ -29,7 +29,7 @@ const TilesList = props => {
       <div className="tilesListPage">
         <Grid container spacing={40}>
         {props.files.map((tile) => (
-            <Grid {...tile} key={tile._id} item sm={6} md={4} lg={3}>
+            <Grid key={tile._id} item sm={6} md={4} lg={3}>
                <Tiles {...tile} key={tile._id} />
             </Grid>
             ))}

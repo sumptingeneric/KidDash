@@ -11,13 +11,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      view : 'main',
-      files:[]
+      view: 'main',
+      files: []
     }
     this.getFilesFromDatabase = this.getFilesFromDatabase.bind(this);
     this.changeView = this.changeView.bind(this);
     this.renderView = this.renderView.bind(this);
-
   }
 
   getFilesFromDatabase(category) {
@@ -25,14 +24,14 @@ class App extends Component {
     if (category !== undefined) {
       endpoint += category;
       console.log(endpoint);
-    } 
+    }
     axios.get(endpoint)
       .then((response) => {
         this.setState({
           files: response.data
         });
       })
-      .catch (function (error) {
+      .catch(function (error) {
         console.log(error);
       })
   };
@@ -48,35 +47,29 @@ class App extends Component {
   }
 
   renderView() {
-    const { view } = this.state;
-    
+    const {view} = this.state;
     if (view === 'Admin') {
       return <Admin />
     } else if (view === 'main') {
-      return (
+      return ( 
         <div>
-        <Header />
-        <FilterBar getFiles={this.getFilesFromDatabase} />
-        <Container files={this.state.files} />
+          <Header getFiles = {this.getFilesFromDatabase}/> 
+          <Container files = {this.state.files}/> 
         </div>
-      )
+      );
     }
   }
-  
-  render () {
-    return (
-      <div>
-        <button type='button' onClick={() => this.changeView('Admin')} >Admin</button>
-        <button type='button' onClick={() => this.changeView('main')}>Home</button>
-        {/* <Header /> 
-        <FilterBar getFiles={this.getFilesFromDatabase} />
-        <Container  files={this.state.files} /> */}
 
-        
-        {this.renderView()}
-        
+  render() {
+    return ( 
+      <div>
+        <button type='button' onClick={() => this.changeView('Admin')}> Admin </button> 
+        <button type='button'onClick={() => this.changeView('main')}> Home </button> 
+          {this.renderView()}
       </div>
     );
   }
 };
-ReactDOM.render(<App />, document.getElementById('App'));
+
+
+ReactDOM.render( < App / > , document.getElementById('App'));
