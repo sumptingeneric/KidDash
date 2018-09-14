@@ -9,8 +9,8 @@ db.once('open', () => console.log('Database successfully connected'));
 
 let fileSchema = new mongoose.Schema({
   caption: String,
-  doc_url: { type: String, unique: true},
-  img_url: { type: String, unique: true},
+  doc_url: {type: String, unique: true},
+  img_url: String,
   timeStamp: { type: Date, default: Date.now },
   category: String
 });
@@ -34,6 +34,8 @@ const getFiles = (details = {}, response) => { // retrieve
 };
 
 const saveFile = (fileDetails, response) => { // create
+
+  console.log(`fileDetails from db on line 37 ${JSON.stringify(fileDetails)}`);
   let newFile = new FileModel(fileDetails);
   newFile.save(err => {
     if (err && err.code !== 11000) {
