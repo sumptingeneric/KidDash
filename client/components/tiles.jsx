@@ -8,26 +8,36 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 
 
 const Tile = tile => {
   return (
-    <Card title={tile.category} className="card" style={{height: 325, maxWidth: 345, justifyContent: "space-around"}} elevation={8}>
+    <Card title={tile.category} className="card" style={{maxWidth: 345}} elevation={4}>
       <CardActionArea style={{display:'flex', justifyContent: "space-around"}} >
-        <CardMedia className="media" height="140" component="img" style={{marginLeft: 15, marginTop: 18, objectFit: 'cover', justify: 'center', position: 'relative'}}image={tile.img_url}>
-        </CardMedia>
+        <CardMedia className="media" 
+          style={{height: 190, width: 345, objectFit: 'cover'}}
+          image={tile.img_url}
+          component="img"
+          />
       </CardActionArea>
-      <Typography style={{display:'flex', justifyContent: "space-around"}} gutterBottom variant="headline" component="h2">
-        {tile.caption}
-      </Typography>
-      <Typography style={{display:'flex', justifyContent: "space-around"}} component="p">
-        {moment(tile.timeStamp).format("MMMM Do YYYY")}
-      </Typography>
+      <CardContent>
+        <Typography gutterBottom variant="headline" component="h2">
+          {tile.caption}
+        </Typography>
+        <Typography component="p">
+          {moment(tile.timeStamp).format("MMMM Do YYYY")}
+        </Typography>
+      </CardContent>
       <CardActions>
-        <Button href={tile.doc_url} size="small" color="primary">
+        <Button size="small" color="primary" href={tile.doc_url}>
           Open Document
         </Button>
+        <IconButton aria-label="Add to favorites">
+          <FavoriteIcon />
+        </IconButton>
       </CardActions>
     </Card>  
     );
