@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { defaultFormatUtc } from 'moment';
+import Login from "./login.jsx";
 
 
 class Admin extends React.Component {
@@ -10,8 +11,8 @@ class Admin extends React.Component {
     this.state = {
       caption: '',
       value: '',
-      category: 'Newsletters', 
-      imgUrl: 'default'    
+      category: 'Newsletters',
+      imgUrl: 'default'
     }
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -37,7 +38,7 @@ class Admin extends React.Component {
     this.setState({value: event.target.value});
   }
 
-  
+
 
   handleClick() {
     let fileInfo = {};
@@ -56,13 +57,13 @@ class Admin extends React.Component {
     .then(res => {
       console.log(res)
     });
-  } 
+  }
 
   render() {
     return (
     <div>
 
-      <h1>Hello Admin</h1>
+      <h1>Hello {this.props.username}</h1>
 
       <h2>Please follow the steps to upload document.</h2>
 
@@ -80,35 +81,35 @@ class Admin extends React.Component {
       </label>
 
         <br></br>
-      
+
       <h3>STEP 2</h3>
       <label>
-        Please input Document name: 
+        Please input Document name:
         <input type='text' placeholder='Input document name' onChange={this.setcaption}></input>
 
-        
+
       </label>
-      
+
       <br></br>
 
       <h3>STEP 3</h3>
       <label>
         URL for google Doc:
-        <input type="text" 
-        value={this.state.value} 
-        onChange={this.handleChange} 
+        <input type="text"
+        value={this.state.value}
+        onChange={this.handleChange}
         placeholder='File url for upload' />
       </label>
-      
-      <br></br>
-    
-      <h4>STEP 4</h4>
-        <label>If you like to upload your owen image url paste the link in the text field: 
-          <input type="text" placeholder='Your image url link' onChange={this.setUrl}></input>
-        </label>      
 
       <br></br>
-      
+
+      <h4>STEP 4</h4>
+        <label>If you like to upload your owen image url paste the link in the text field:
+          <input type="text" placeholder='Your image url link' onChange={this.setUrl}></input>
+        </label>
+
+      <br></br>
+
       <h3>FINAL STEP</h3>
       <button onClick={this.handleClick}>FINAL STEP</button>
     </div>
