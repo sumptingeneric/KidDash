@@ -1,31 +1,14 @@
 import React, { Component } from 'react';
 import Tiles from './tiles.jsx'
 
+
+//Material UI 
 import Grid from '@material-ui/core/Grid';
-
-
-const styles = theme => ({
-  root: {
-    flexGrow: 1,
-    maxWidth: 600,
-    padding: theme.spacing.unit * 2,
-  },
-  image: {
-    width: 128,
-    height: 128,
-  },
-  img: {
-    margin: 'auto',
-    display: 'block',
-    maxWidth: '100%',
-    maxHeight: '100%',
-  },
-});
 
 
 const TilesList = props => {
   return (
-    <React.Fragment>
+    <div>
       <div className="tilesListPage">
         <Grid container spacing={40}>
         {props.files.map((tile) => (
@@ -35,10 +18,19 @@ const TilesList = props => {
             ))}
         </Grid>   
       </div>
-    </React.Fragment>
+    </div>
   
   );
 };
 
 
 export default TilesList;
+
+
+/**
+ * NOTES: 
+ * Tiles List Component
+ * Material UI was used to create the Grid for all of the cards to render neatly on the page. 
+ * The grid is set to adjust the amount of cards on the screen depending on the size of th window.  
+ *
+ */
