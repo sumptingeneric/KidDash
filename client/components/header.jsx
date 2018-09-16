@@ -18,7 +18,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import { Drawer, AppBar, Toolbar }from '@material-ui/core';
+import { Drawer, AppBar, Toolbar } from '@material-ui/core';
 import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { Typography, TextField, Divider } from '@material-ui/core';
 import { ChevronLeft, Home, Email, Edit, Favorite } from '@material-ui/icons';
