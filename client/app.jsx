@@ -18,6 +18,7 @@ class App extends Component {
     this.getFilesFromDatabase = this.getFilesFromDatabase.bind(this);
     this.changeView = this.changeView.bind(this);
     this.renderView = this.renderView.bind(this);
+
   }
 
   getFilesFromDatabase(category) {
@@ -31,6 +32,7 @@ class App extends Component {
         this.setState({
           files: response.data
         });
+        console.log(this.state.files);
       })
       .catch(function (error) {
         console.log(error);
@@ -43,7 +45,7 @@ class App extends Component {
 
   changeView(option) {
     this.setState({
-      view: option,
+      view: option
     })
   }
 
