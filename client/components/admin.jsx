@@ -18,7 +18,7 @@ import Switch from '@material-ui/core/Switch';
 const menuItems = [
   {
     display: 'News Letter',
-    value: 'Newsletter',
+    value: 'Newsletters',
   },
   {
     display: 'Sports',
@@ -161,7 +161,7 @@ class Admin extends React.Component {
         <Paper style={{ width: 600, marginLeft: 'auto', marginRight: 'auto', padding: 15 }}>
           <Typography variant='Headline' gutterBottom>
             
-            <h1>Hello Admin</h1>
+            <h1>Hello {this.props.username}</h1>
             <h2>Please follow the steps to upload document.</h2>
 
             <h3>Step 1:</h3>
