@@ -18,15 +18,10 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Divider from '@material-ui/core/Divider';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import { Drawer, AppBar, Toolbar }from '@material-ui/core';
+import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { Typography, TextField, Divider } from '@material-ui/core';
+import { ChevronLeft, Home, Email, Edit, Favorite } from '@material-ui/icons';
 
 const drawerWidth = 740;
 
@@ -59,9 +54,6 @@ const styles = theme => ({
   'appBarShift-left': {
     marginLeft: drawerWidth,
   },
-  'appBarShift-right': {
-    marginRight: drawerWidth,
-  },
   menuButton: {
     marginLeft: 12,
     marginRight: 20,
@@ -92,9 +84,6 @@ const styles = theme => ({
   'content-left': {
     marginLeft: -drawerWidth,
   },
-  'content-right': {
-    marginRight: -drawerWidth,
-  },
   contentShift: {
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
@@ -103,10 +92,7 @@ const styles = theme => ({
   },
   'contentShift-left': {
     marginLeft: 0,
-  },
-  'contentShift-right': {
-    marginRight: 0,
-  },
+  }
 });
 
 class Header extends React.Component {
@@ -114,7 +100,6 @@ class Header extends React.Component {
     super(props);
     this.state = {
       open: false,
-      anchor: 'left'
     };
     this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
     this.handleDrawerClose = this.handleDrawerClose.bind(this);
@@ -129,52 +114,74 @@ class Header extends React.Component {
   };
 
   render() {
-      const { anchor, open } = this.state;
+      const { open } = this.state;
       const drawer = (
       <Drawer
         variant="persistent"
-        anchor={anchor}
         open={open}
-        style={{width: 750}}
         classes={{
           paper: styles.drawerPaper,
         }}
       >
-
-      <div className={styles.drawerHeader}>
-        <IconButton onClick={this.handleDrawerClose}>
-          {styles.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-        </IconButton>
-      </div>
-      <Divider />
-        <List style={{width: 200, "marginLeft": 20, color: this.props.view === 'Home' ? 'blue' : 'black'}}
+        <div className={styles.drawerHeader} style={{ textAlign: 'right' }} >
+          <IconButton onClick={this.handleDrawerClose}>
+            <ChevronLeft />
+          </IconButton>
+        </div>
+        <Divider />
+        <List component="nav">
+          <ListItem button
+          selected={this.props.view === 'Home'}
           onClick={() => {
             this.props.changeView('Home');
             this.handleDrawerClose();
-          }
-        }>{'Home'}</List>
-        <List style={{width: 200, "marginLeft": 20, color: this.props.view === 'Admin' ? 'blue' : 'black'}}
+          }}>
+            <ListItemIcon>
+              <Home />
+            </ListItemIcon>
+            <ListItemText primary="Home" />
+          </ListItem>
+
+          <ListItem button
+          selected={this.props.view === 'Admin' || this.props.view === 'Login'}
           onClick={() => {
-              this.props.changeView('Login');
-              this.handleDrawerClose();
-            }
-        }>{'Admin'}</List>
+            this.props.changeView('Login');
+            this.handleDrawerClose();
+          }}>
+            <ListItemIcon>
+              <Edit />
+            </ListItemIcon>
+            <ListItemText primary="Admin" />
+          </ListItem>
+
+          <ListItem button onClick={() => {
+            this.handleDrawerClose();
+          }}>
+            <ListItemIcon>
+              <Email />
+            </ListItemIcon>
+            <ListItemText primary="Email" />
+          </ListItem>
+
+          <ListItem button onClick={() => {
+            this.handleDrawerClose();
+          }}>
+            <ListItemIcon>
+              <Favorite />
+            </ListItemIcon>
+            <ListItemText primary="Favorites" />
+          </ListItem>
+        </List>
       </Drawer>
     );
 
-    let before = null;
-    let after = null;
-
-    if (anchor === 'left') {
-      before = drawer;
-    }
     return (
       <div className={styles.root}>
         <div className={styles.appFrame}>
           <div className="Header"style={{ display: "flex", alignItems: 'flex-end', marginBottom: 80}}>
             <AppBar style={{backgroundColor: "Blue"}} className={classNames(styles.appBar, {
               [styles.appBarShift]: open,
-              [styles[`appBarShift-${anchor}`]]: open,
+              [styles['appBarShift-left']]: open,
             })}>
               <Toolbar disableGutters={!open}>
                 <IconButton color="inherit" aria-label="Open drawer" onClick={this.handleDrawerOpen} className={classNames(styles.menuButton, open && styles.hide)}>
@@ -183,22 +190,25 @@ class Header extends React.Component {
                 <Typography variant="title" color="inherit" className="AppName" noWrap>
                   Kid Dash
                 </Typography>
-                <div style={{ marginLeft: 20}}>
-                  <FilterBar getFiles={this.props.getFiles}/>
-                </div>
+                {
+                  this.props.getFiles !== undefined ? (<div style={{ marginLeft: 20}}>
+                      <FilterBar getFiles={this.props.getFiles}/>
+                    </div>) : null
+                }
               </Toolbar>
             </AppBar>
-            {before}
+            {drawer}
             <main
-              className={classNames(styles.content, styles[`content-${anchor}`], {
+              className={classNames(styles.content, styles['content-left'], {
                 [styles.contentShift]: open,
-                [styles[`contentShift-${anchor}`]]: open,
+                [styles['contentShift-left']]: open,
               })}>
               <div className={styles.drawerHeader} />
             </main>
           </div>
         </div>
-      </div>);
+      </div>
+    );
   }
 }
 

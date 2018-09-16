@@ -52,21 +52,21 @@ class App extends Component {
     if (view === 'Admin') {
       return (
         <div>
-        <Header getFiles = {this.getFilesFromDatabase} changeView= {this.changeView}/>
+        <Header changeView= {this.changeView}/>
         <Admin />
         </div>
         )
     } else if (view === 'Login') {
       return (
         <div>
-        <Header getFiles = {this.getFilesFromDatabase} changeView= {this.changeView}/>
+        <Header changeView= {this.changeView}/>
         <Login />
         </div>
         )
     } else if (view === 'Home') {
       return (
         <div>
-          <Header getFiles = {this.getFilesFromDatabase} changeView= {this.changeView}/>
+          <Header getFiles = {this.getFilesFromDatabase} view={this.state.view} changeView= {this.changeView}/>
           <Container files = {this.state.files}/>
         </div>
       );
@@ -76,8 +76,6 @@ class App extends Component {
   render() {
     return (
       <div>
-          <button type='button' onClick={() => this.changeView('Admin')}> Admin </button>
-          <button type='button'onClick={() => this.changeView('Home')}> Home </button>
         {this.renderView()}
       </div>
     );
