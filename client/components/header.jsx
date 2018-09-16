@@ -1,6 +1,8 @@
 import React from "react";
 import FilterBar from './filterBar.jsx';
-
+import Container from './container.jsx'
+import Admin from "./admin.jsx";
+import Login from "./login.jsx";
 // Material UI
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
@@ -146,15 +148,15 @@ class Header extends React.Component {
         </IconButton>
       </div>
       <Divider />
-        <List style={{width: 200, "marginLeft": 20, color: this.props.view === 'home' ? 'blue' : 'black'}}
+        <List style={{width: 200, "marginLeft": 20, color: this.props.view === 'Home' ? 'blue' : 'black'}}
           onClick={() => {
-            this.props.changeView('home');
+            this.props.changeView('Home');
             this.handleDrawerClose();
           }
         }>{'Home'}</List>
-        <List style={{width: 200, "marginLeft": 20, color: this.props.view === 'admin' ? 'blue' : 'black'}}
+        <List style={{width: 200, "marginLeft": 20, color: this.props.view === 'Admin' ? 'blue' : 'black'}}
           onClick={() => {
-              this.props.changeView('admin');
+              this.props.changeView('Login');
               this.handleDrawerClose();
             }
         }>{'Admin'}</List>
@@ -169,7 +171,6 @@ class Header extends React.Component {
     }
     return (
       <div className={styles.root}>
-        
         <div className={styles.appFrame}>
           <div className="Header"style={{ display: "flex", alignItems: 'flex-end', marginBottom: 75}}>
             <AppBar style={{backgroundColor: "Blue"}} className={classNames(styles.appBar, {

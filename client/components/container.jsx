@@ -4,7 +4,6 @@ import TilesList from './tilesList.jsx';
 
 
 const Container = props => {
-
   const renderView = () => {
     if (props.view === "home") {
       return <TilesList files={props.files} />
@@ -13,12 +12,11 @@ const Container = props => {
       return <Admin />
     }
   } 
-
   return (
     <div>
-      {renderView()}
+      <TilesList files={props.files} />
     </div>
-  )
+  );
 }
 
 

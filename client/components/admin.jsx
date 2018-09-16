@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { defaultFormatUtc } from 'moment';
+import Login from "./login.jsx";
 
 
 // ---------material-ui
@@ -150,7 +151,7 @@ class Admin extends React.Component {
         console.log(res)
         alert('Document uploaded have a good day.')
       });
-  }
+    }
 
   render() {
     const { anchor } = this.state;
