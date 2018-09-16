@@ -4,40 +4,134 @@ import axios from 'axios';
 import { defaultFormatUtc } from 'moment';
 
 
+// ---------material-ui
+
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem'
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
+import Switch from '@material-ui/core/Switch';
+
+const menuItems = [
+  {
+    display: 'News Letter',
+    value: 'Newsletter',
+  },
+  {
+    display: 'Sports',
+    value: 'Sports',
+  },
+  {
+    display: 'Teacher Notes',
+    value: 'Teacher_Notes',
+  },
+  {
+    display: 'FAQ',
+    value: 'FAQ',
+  },
+  {
+    display: 'School Events',
+    value: 'School_Events',
+  }, 
+  {
+    display: 'After School',
+    value: 'After_School',
+  }
+]
+
 class Admin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       caption: '',
       value: '',
-      category: 'Newsletters', 
-      imgUrl: 'default'    
+      category: 'Subject',
+      imgUrl: 'default',
+      pickImg: '',
+      anchor: null,
+      setImg: false,
+      ourImg: false
     }
+
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.setCategory = this.setCategory.bind(this);
     this.setcaption = this.setcaption.bind(this);
     this.setUrl = this.setUrl.bind(this);
-
+    this.selectImg = this.selectImg.bind(this);
+    this.renderImgInput = this.renderImgInput.bind(this);
+    this.setAnchor = this.setAnchor.bind(this);
+    this.unsetAnchor = this.unsetAnchor.bind(this);
+    this.renderOurImgInput = this.renderOurImgInput.bind(this);
+    this.setOurImg = this.setOurImg.bind(this);
   }
+
+  setAnchor(event) {
+    this.setState({ anchor: event.currentTarget });
+  };
+
+  unsetAnchor() {
+    this.setState({ anchor: null });
+  };
 
   setcaption(event) {
-    this.setState({caption: event.target.value})
+    this.setState({ caption: event.target.value })
   }
 
-  setCategory(event) {
-    this.setState({category: event.target.value})
+  setCategory(value) {
+    let newThis = this;
+    return function () {
+      newThis.setState({
+        category: value,
+        anchor: null
+      });
+    }
   }
 
   setUrl(event) {
-    this.setState({imgUrl: event.target.value});
+    this.setState({ imgUrl: event.target.value });
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.setState({ value: event.target.value });
   }
 
-  
+  selectImg() {
+    this.setState({ 
+      pickImg: 'pickImg',
+      setImg: !this.state.setImg
+    });
+  }
+
+  setOurImg() {
+    this.setState({ 
+      pickImg: 'our',
+      ourImg: !this.state.ourImg 
+    });
+  }
+
+  renderImgInput() {
+    const { pickImg, setImg } = this.state;
+
+    if (pickImg === 'pickImg' && setImg === true) {
+      return (
+        <p>Paste url to the right:
+          <input style={{ marginLeft: 5, maxWidth: 300, height: 8, padding: 5, borderRadius: 5 }} type="text" placeholder='Your image url link' onChange={this.setUrl}></input>
+        </p>
+      )
+    } 
+  }
+
+  renderOurImgInput() {
+    const { pickImg, ourImg } = this.state;
+
+    if (pickImg === 'our' && ourImg === true)
+      return (
+        <p>We will upload a image for you</p>
+      )
+  }
 
   handleClick() {
     let fileInfo = {};
@@ -46,72 +140,120 @@ class Admin extends React.Component {
     fileInfo.doc_url = this.state.value;
     fileInfo.img_url = this.state.imgUrl;
 
-    console.log(`this selected category-->: ${fileInfo.category}`);
-    console.log(`this selected caption-->: ${fileInfo.caption}`);
-    console.log(`i was clicked to send off url-->: ${fileInfo.doc_url}`);
-    console.log(`i was clicked to send off img_url-->: ${fileInfo.img_url}`);
-
+    console.log(`send off category-->: ${fileInfo.category}`);
+    console.log(`send off caption-->: ${fileInfo.caption}`);
+    console.log(`send off url-->: ${fileInfo.doc_url}`);
+    console.log(`send off img_url-->: ${fileInfo.img_url}`);
 
     axios.post('/api/docs', { fileInfo })
-    .then(res => {
-      console.log(res)
-    });
-  } 
+      .then(res => {
+        console.log(res)
+        alert('Document uploaded have a good day.')
+      });
+  }
 
   render() {
+    const { anchor } = this.state;
+
     return (
-    <div>
+      <div>
+        <Paper style={{ width: 600, marginLeft: 'auto', marginRight: 'auto', padding: 15 }}>
+          <Typography variant='Headline' gutterBottom>
+            
+            <h1>Hello Admin</h1>
+            <h2>Please follow the steps to upload document.</h2>
 
-      <h1>Hello Admin</h1>
+            <h3>Step 1:</h3>
+            <label>
+              Pick a category:
 
-      <h2>Please follow the steps to upload document.</h2>
+              <div>
+                <Button
+                  aria-owns={anchor ? 'simple-menu' : null}
+                  aria-haspopup="true"
+                  onClick={this.setAnchor}
+                >
+                  {this.state.category}
+                </Button>
+                
+                <Menu
+                  id="Category"
+                  anchorEl={anchor}
+                  open={Boolean(anchor)}
+                  onClose={this.unsetAnchor}
+                >
+                  {menuItems.map(item => (
+                    <MenuItem onClick={this.setCategory(item.value)}>{item.display}</MenuItem>
+                  ))}
+                </Menu>
 
-      <h3>STEP 1</h3>
-      <label>
-          Pick upload Category:
-        <select onChange={this.setCategory}>
-          <option value="Newsletters">Newsletters</option>
-          <option value="Sports">sports</option>
-          <option value="Teachers_Notes">Teachers_Notes</option>
-          <option value="FAQ">FAQ</option>
-          <option value="School_Events">School_Events</option>
-          <option value="After_School">After_School</option>
-          </select>
-      </label>
+              </div>
+            </label>
 
-        <br></br>
-      
-      <h3>STEP 2</h3>
-      <label>
-        Please input Document name: 
-        <input type='text' placeholder='Input document name' onChange={this.setcaption}></input>
+            <br></br>
 
-        
-      </label>
-      
-      <br></br>
+            <h3>Step 2</h3>
 
-      <h3>STEP 3</h3>
-      <label>
-        URL for google Doc:
-        <input type="text" 
-        value={this.state.value} 
-        onChange={this.handleChange} 
-        placeholder='File url for upload' />
-      </label>
-      
-      <br></br>
-    
-      <h4>STEP 4</h4>
-        <label>If you like to upload your owen image url paste the link in the text field: 
-          <input type="text" placeholder='Your image url link' onChange={this.setUrl}></input>
-        </label>      
+            <label>
+              Input the document title:
+              <input style={{ marginLeft: 5, maxWidth: 300, height: 8, padding: 5, borderRadius: 5, }}
+                type='text'
+                placeholder='Input document name'
+                onChange={this.setcaption}>
+              </input>
 
-      <br></br>
-      
-      <h3>FINAL STEP</h3>
-      <button onClick={this.handleClick}>FINAL STEP</button>
-    </div>
+            </label>
+
+            <br></br>
+
+            <h3>Step 3</h3>
+            
+            <label>
+              Input the document URL:
+              <input style={{ marginLeft: 5, maxWidth: 300, height: 8, padding: 5, borderRadius: 5 }} type="text"
+                value={this.state.value}
+                onChange={this.handleChange}
+                placeholder='File url for upload' />
+            </label>
+
+            <br></br>
+
+            <h4>Step 4</h4>
+            
+              <label>
+                <p>Input my owen image:
+                  <input style={{ marginLeft: 5, height: 15, width: 15, margin: 'auto', verticalAlign:'bottom' }}
+                    type='checkBox'
+                    onClick={this.selectImg}>
+                  </input>
+                  {this.renderImgInput()}
+                </p>
+                </label>
+                <div>
+                  <label>
+                  Let us pick image:
+                    <input style={{ marginLeft: 5, height: 20, width: 20, margin: 'auto', verticalAlign: 'bottom' }}
+                      type='checkBox'
+                  onClick={this.setOurImg}>
+                    </input>
+                {this.renderOurImgInput()}
+                  </label>
+                </div>
+
+            <br></br>
+           
+            <h3>Final Step</h3>
+            <Button
+              onClick={this.handleClick}
+              variant="contained"
+              color="primary"
+            >
+              FINAL STEP
+            </Button>
+
+          </Typography>
+        </Paper>
+      </div>
     )
   }
 }
