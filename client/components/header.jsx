@@ -179,7 +179,7 @@ class Header extends React.Component {
       <div className={styles.root}>
         <div className={styles.appFrame}>
           <div className="Header"style={{ display: "flex", alignItems: 'flex-end', marginBottom: 80}}>
-            <AppBar style={{backgroundColor: "Blue"}} className={classNames(styles.appBar, {
+            <AppBar style={{backgroundColor: "Teal"}} className={classNames(styles.appBar, {
               [styles.appBarShift]: open,
               [styles['appBarShift-left']]: open,
             })}>
