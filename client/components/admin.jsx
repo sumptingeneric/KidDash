@@ -6,7 +6,6 @@ import Login from "./login.jsx";
 
 
 // ---------material-ui
-
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem'
 import Paper from '@material-ui/core/Paper';
@@ -17,7 +16,7 @@ import Switch from '@material-ui/core/Switch';
 
 const menuItems = [
   {
-    display: 'News Letter',
+    display: 'Newsletters',
     value: 'Newsletters',
   },
   {
@@ -26,7 +25,7 @@ const menuItems = [
   },
   {
     display: 'Teacher Notes',
-    value: 'Teacher_Notes',
+    value: 'Teachers_Notes',
   },
   {
     display: 'FAQ',
@@ -36,10 +35,6 @@ const menuItems = [
     display: 'School Events',
     value: 'School_Events',
   }, 
-  {
-    display: 'After School',
-    value: 'After_School',
-  }
 ]
 
 class Admin extends React.Component {
@@ -70,16 +65,16 @@ class Admin extends React.Component {
   }
 
   setAnchor(event) {
-    this.setState({ anchor: event.currentTarget });
+    this.setState({anchor: event.currentTarget});
   };
 
   unsetAnchor() {
-    this.setState({ anchor: null });
+    this.setState({anchor: null});
   };
 
   setcaption(event) {
-    this.setState({ caption: event.target.value })
-  }
+    this.setState({caption: event.target.value});
+  };
 
   setCategory(value) {
     let newThis = this;
@@ -89,29 +84,29 @@ class Admin extends React.Component {
         anchor: null
       });
     }
-  }
+  };
 
   setUrl(event) {
-    this.setState({ imgUrl: event.target.value });
-  }
+    this.setState({imgUrl: event.target.value});
+  };
 
   handleChange(event) {
-    this.setState({ value: event.target.value });
-  }
+    this.setState({value: event.target.value});
+  };
 
   selectImg() {
     this.setState({ 
       pickImg: 'pickImg',
       setImg: !this.state.setImg
     });
-  }
+  };
 
   setOurImg() {
     this.setState({ 
       pickImg: 'our',
       ourImg: !this.state.ourImg 
     });
-  }
+  };
 
   renderImgInput() {
     const { pickImg, setImg } = this.state;
@@ -119,7 +114,10 @@ class Admin extends React.Component {
     if (pickImg === 'pickImg' && setImg === true) {
       return (
         <p>Paste url to the right:
-          <input style={{ marginLeft: 5, maxWidth: 300, height: 8, padding: 5, borderRadius: 5 }} type="text" placeholder='Your image url link' onChange={this.setUrl}></input>
+          <input style={{marginLeft: 5, maxWidth: 300, height: 8, padding: 5, borderRadius: 5}} 
+          type="text" 
+          placeholder='Your image url link' 
+          onChange={this.setUrl}></input>
         </p>
       )
     } 
@@ -146,7 +144,7 @@ class Admin extends React.Component {
     console.log(`send off url-->: ${fileInfo.doc_url}`);
     console.log(`send off img_url-->: ${fileInfo.img_url}`);
 
-    axios.post('/api/docs', { fileInfo })
+    axios.post('/api/docs', {fileInfo})
       .then(res => {
         console.log(res)
         alert('Document uploaded have a good day.')
@@ -159,15 +157,12 @@ class Admin extends React.Component {
     return (
       <div>
         <Paper style={{ width: 600, marginLeft: 'auto', marginRight: 'auto', padding: 15 }}>
-          <Typography variant='Headline' gutterBottom>
-            
-            <h1>Hello {this.props.username}</h1>
-            <h2>Please follow the steps to upload document.</h2>
-
+          <Typography variant='Headline' gutterBottom>            
+            <h1>Hello {this.props.username},</h1>
+            <h2>Please follow the steps to upload a document.</h2>
             <h3>Step 1:</h3>
             <label>
               Pick a category:
-
               <div>
                 <Button
                   aria-owns={anchor ? 'simple-menu' : null}
@@ -175,8 +170,7 @@ class Admin extends React.Component {
                   onClick={this.setAnchor}
                 >
                   {this.state.category}
-                </Button>
-                
+                </Button>               
                 <Menu
                   id="Category"
                   anchorEl={anchor}
@@ -184,74 +178,66 @@ class Admin extends React.Component {
                   onClose={this.unsetAnchor}
                 >
                   {menuItems.map(item => (
-                    <MenuItem onClick={this.setCategory(item.value)}>{item.display}</MenuItem>
+                    <MenuItem 
+                    onClick={this.setCategory(item.value)}
+                    >{item.display}
+                    </MenuItem>
                   ))}
                 </Menu>
-
               </div>
             </label>
-
             <br></br>
-
             <h3>Step 2</h3>
-
             <label>
-              Input the document title:
-              <input style={{ marginLeft: 5, maxWidth: 300, height: 8, padding: 5, borderRadius: 5, }}
+              Add the document title:
+              <input style={{marginLeft: 5, maxWidth: 300, height: 8, padding: 5, borderRadius: 5}}
                 type='text'
                 placeholder='Input document name'
                 onChange={this.setcaption}>
               </input>
-
             </label>
-
             <br></br>
-
-            <h3>Step 3</h3>
-            
+            <h3>Step 3</h3>            
             <label>
-              Input the document URL:
-              <input style={{ marginLeft: 5, maxWidth: 300, height: 8, padding: 5, borderRadius: 5 }} type="text"
+              Upload the document URL:
+              <input style={{marginLeft: 5, maxWidth: 300, height: 8, padding: 5, borderRadius: 5}} 
+                type="text"
                 value={this.state.value}
                 onChange={this.handleChange}
                 placeholder='File url for upload' />
             </label>
-
             <br></br>
-
-            <h4>Step 4</h4>
-            
-              <label>
-                <p>Input my owen image:
-                  <input style={{ marginLeft: 5, height: 15, width: 15, margin: 'auto', verticalAlign:'bottom' }}
+            <h4>Step 4</h4>           
+              <label>                               
+                  <input style={{marginLeft: 5, height: 20, width: 20, margin: 'auto', verticalAlign:'bottom'}}
                     type='checkBox'
                     onClick={this.selectImg}>
-                  </input>
-                  {this.renderImgInput()}
-                </p>
-                </label>
-                <div>
-                  <label>
-                  Let us pick image:
-                    <input style={{ marginLeft: 5, height: 20, width: 20, margin: 'auto', verticalAlign: 'bottom' }}
-                      type='checkBox'
-                  onClick={this.setOurImg}>
-                    </input>
-                {this.renderOurImgInput()}
-                  </label>
-                </div>
+              </input>&nbsp;
+              Upload my own image
+                  
 
-            <br></br>
-           
+                </label>
+            {this.renderImgInput()}
+                <div>
+                <br />
+                  <label>
+                 
+                    <input style={{marginLeft: 5, height: 20, width: 20, margin: 'auto', verticalAlign: 'bottom'}}
+                      type='checkBox'
+                      onClick={this.setOurImg}>
+                </input>&nbsp;                       
+              Let us pick an image            
+                  </label>
+              {this.renderOurImgInput()}
+                </div>
+            <br></br>          
             <h3>Final Step</h3>
             <Button
               onClick={this.handleClick}
               variant="contained"
-              color="primary"
             >
-              FINAL STEP
+              Submit document 
             </Button>
-
           </Typography>
         </Paper>
       </div>
@@ -262,4 +248,11 @@ class Admin extends React.Component {
 
 export default Admin;
 
+/**
+ * NOTES:
+ * material-ui was used to create the category menu and the final step button
+ * menuItems object is used to render the menu items in the Category popout menu
+ * renderImgInput and renderOurImgInput are the check boxed in step 4 based on what is click
+ * setCategory sets a varable this to newThis because 'this' was losing value and thats how i fixed it 
+ */
 
