@@ -4,14 +4,7 @@ import TilesList from './tilesList.jsx';
 
 
 const Container = props => {
-  const renderView = () => {
-    if (props.view === "home") {
-      return <TilesList files={props.files} />
-    }
-    else if (props.view === "admin") {
-      return <Admin />
-    }
-  } 
+
   return (
     <div>
       <TilesList files={props.files} />
@@ -19,5 +12,9 @@ const Container = props => {
   );
 }
 
-
 export default Container;
+
+/**
+ * NOTES:
+ * Container is used to send all of our documents to titlesList to be render each document to the page
+ */

@@ -87,7 +87,9 @@ class App extends Component {
 
 ReactDOM.render( < App /> , document.getElementById('App'));
 
-// <Header getFiles = {this.getFilesFromDatabase} changeView= {this.changeView}/>
-
-    // <button type='button' onClick={() => this.changeView('Admin')}> Admin </button>
-        // <button type='button'onClick={() => this.changeView('Home')}> Home </button>
+/**
+ * NOTES:
+ * render in app is used for our base and where our view switcher lives and renders based on
+ * the value of view
+ * we pass our fetched data to other components
+ */
