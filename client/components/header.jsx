@@ -100,11 +100,8 @@ class Header extends React.Component {
     super(props);
     this.state = {
       open: false,
-<<<<<<< HEAD
       anchor: 'left',
       view: 'home'
-=======
->>>>>>> 5c9d53469d5a0f1eab7a001b858cade719eadcb3
     };
     this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
     this.handleDrawerClose = this.handleDrawerClose.bind(this);
@@ -183,13 +180,8 @@ class Header extends React.Component {
     return (
       <div className={styles.root}>
         <div className={styles.appFrame}>
-<<<<<<< HEAD
           <div className="Header"style={{ display: "flex", alignItems: 'flex-end', marginBottom: 75}}>
             <AppBar style={{backgroundColor: "Blue"}} className={classNames(styles.appBar, {
-=======
-          <div className="Header"style={{ display: "flex", alignItems: 'flex-end', marginBottom: 80}}>
-            <AppBar style={{backgroundColor: "Teal"}} className={classNames(styles.appBar, {
->>>>>>> 5c9d53469d5a0f1eab7a001b858cade719eadcb3
               [styles.appBarShift]: open,
               [styles['appBarShift-left']]: open,
             })}>
