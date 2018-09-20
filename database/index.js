@@ -2,22 +2,27 @@ const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
 // accommodates connection to either Heroku or localhost
-let uristring = process.env.MONGOLAB_URI || 'mongodb://localhost/KidDashDatabase';
+let uristring =
+  process.env.MONGOLAB_URI || 'mongodb://localhost/KidDashDatabase';
 
 // second argument avoids console warnings
-mongoose.connect(uristring, {useNewUrlParser: true});
+mongoose.connect(
+  uristring,
+  { useNewUrlParser: true }
+);
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'db connection error'));
 db.once('open', () => console.log('Database successfully connected'));
 
 let fileSchema = new mongoose.Schema({
   caption: String,
-  docUrl: {type: String, unique: true},
+  docUrl: { type: String, unique: true },
   imgUrl: String,
   timeStamp: { type: Date, default: Date.now },
   category: String,
   uploadedBy: Array,
-  pinnedBy: Array //  have list of categories, where we would filter
+  pinnedBy: Array,
+  usefulTo: Array
 });
 
 let User = new mongoose.Schema({
@@ -25,9 +30,9 @@ let User = new mongoose.Schema({
   myDocs: Array, //doc ids
   myPins: Array,
   type: String, //parent/teacher/admin
-  myCategories: Array
-})
-
+  myCategories: Array, //have list of categories, where we would filter
+  myUsefulDocs: Array
+});
 
 let FileModel = mongoose.model('FileModel', fileSchema);
 
@@ -35,7 +40,7 @@ let FileModel = mongoose.model('FileModel', fileSchema);
 const getFiles = (details = {}, response) => {
   FileModel.find(details).exec((err, data) => {
     if (err) {
-     return console.error(`error while retrieving files: ${err}`);
+      return console.error(`error while retrieving files: ${err}`);
     }
     response.status(200).send(data);
   });
@@ -60,7 +65,8 @@ const saveFile = (fileDetails, response) => {
 };
 
 // update the category or caption for a record
-const updateFile = (id, update, response) => { // update
+const updateFile = (id, update, response) => {
+  // update
   FileModel.findByIdAndUpdate(id, update, (err, updatedFile) => {
     if (err) {
       console.error(`Error while updating file. Error: ${err}`);
@@ -73,7 +79,8 @@ const updateFile = (id, update, response) => { // update
 };
 
 // delete a record
-const deleteFile = (id, response) => { // delete
+const deleteFile = (id, response) => {
+  // delete
   FileModel.findByIdAndRemove(id, (err, deletedFile) => {
     if (err) {
       console.error(`Error while deleting file from database. Error: ${err}`);
