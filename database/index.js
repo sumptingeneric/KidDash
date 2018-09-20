@@ -19,19 +19,22 @@ let fileSchema = new mongoose.Schema({
   docUrl: { type: String, unique: true },
   imgUrl: String,
   timeStamp: { type: Date, default: Date.now },
-  category: String,
+  board: String,
+  teacherComments: String,
   uploadedBy: Array,
   pinnedBy: Array,
-  usefulTo: Array
+  likedBy: Array
 });
 
 let User = new mongoose.Schema({
   username: String,
+  email: String,
+  type: String, //parent/teacher/admin
+  students: Array,
   myDocs: Array, //doc ids
   myPins: Array,
-  type: String, //parent/teacher/admin
-  myCategories: Array, //have list of categories, where we would filter
-  myUsefulDocs: Array
+  myBoards: Array, //have list of categories, where we would filter
+  myLikedDocs: Array
 });
 
 let FileModel = mongoose.model('FileModel', fileSchema);
