@@ -12,11 +12,21 @@ db.once('open', () => console.log('Database successfully connected'));
 
 let fileSchema = new mongoose.Schema({
   caption: String,
-  doc_url: {type: String, unique: true},
-  img_url: String,
+  docUrl: {type: String, unique: true},
+  imgUrl: String,
   timeStamp: { type: Date, default: Date.now },
-  category: String
+  category: String,
+  uploadedBy: Array,
+  pinnedBy: Array //  have list of categories, where we would filter
 });
+
+let User = new mongoose.Schema({
+  username: String,
+  myDocs: Array, //doc ids
+  myPins: Array,
+  type: String, //parent/teacher/admin
+  myCategories: Array
+})
 
 
 let FileModel = mongoose.model('FileModel', fileSchema);
