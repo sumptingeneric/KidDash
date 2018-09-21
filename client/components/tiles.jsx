@@ -11,7 +11,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import Favorite from '@material-ui/icons/Favorite';
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import BookmarkBorder from '@material-ui/icons/BookmarkBorder';
 import Bookmark from '@material-ui/icons/Bookmark';
 
@@ -34,8 +35,8 @@ const Tile = props => {
         <Button size="small" color="primary" href={props.tile.doc_url}>
           Open Document
         </Button>
-        <IconButton aria-label="Add to favorites">
-          <FavoriteIcon />
+        <IconButton aria-label="Add to favorites" onClick={props.toggleUseful}>
+          {props.isUseful ? <Favorite /> : <FavoriteBorder />}
         </IconButton>
         <IconButton aria-label="Bookmark Border" onClick={props.togglePin} >
           {props.isPinned ? <Bookmark /> : <BookmarkBorder />}
