@@ -16,31 +16,30 @@ import BookmarkBorder from '@material-ui/icons/BookmarkBorder';
 import Bookmark from '@material-ui/icons/Bookmark';
 
 
-const Tile = tile => {
+const Tile = props => {
   return (
-    <Card title={tile.category} className="card" style={{maxWidth: 345}} elevation={4}>
+    <Card title={props.tile.category} className="card" style={{maxWidth: 345}} elevation={4}>
       <CardActionArea style={{display:'flex', justifyContent: "space-around"}} >
-        <CardMedia className="media" style={{height: 190, width: 345, objectFit: 'cover'}} image={tile.img_url} component="img"/>
+        <CardMedia className="media" style={{height: 190, width: 345, objectFit: 'cover'}} image={props.tile.img_url} component="img"/>
       </CardActionArea>
       <CardContent>
         <Typography id='cardCaption' gutterBottom variant="headline" component="h2">
-          {tile.caption}
+          {props.tile.caption}
         </Typography>
         <Typography component="p">
-          {moment(tile.timeStamp).format("MMMM Do YYYY")}
+          {moment(props.tile.timeStamp).format("MMMM Do YYYY")}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" color="primary" href={tile.doc_url}>
+        <Button size="small" color="primary" href={props.tile.doc_url}>
           Open Document
         </Button>
         <IconButton aria-label="Add to favorites">
           <FavoriteIcon />
         </IconButton>
         <IconButton aria-label="Bookmark Border">
-          <BookmarkBorder />
+          {props.isPinned ? <Bookmark /> : <BookmarkBorder />}
         </IconButton>
-
       </CardActions>
     </Card>  
   );
