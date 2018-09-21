@@ -33,7 +33,7 @@ app.post('/api/docs/', (request, response) => {
 });
 
 app.delete('/api/docs', (request, response) => {
-  database.deleteFile(request.body, response);
+  database.deleteFile(request.body.id, response);
 });
 
 app.put('/api/docs', (request, response) => {
