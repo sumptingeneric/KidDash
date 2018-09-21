@@ -1,0 +1,168 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Admin renders correctly 1`] = `
+<div>
+  <WithStyles(Paper)
+    style={
+      Object {
+        "marginLeft": "auto",
+        "marginRight": "auto",
+        "padding": 15,
+        "width": 600,
+      }
+    }
+  >
+    <WithStyles(Typography)
+      gutterBottom={true}
+      variant="Headline"
+    >
+      <h1>
+        Hello 
+        ,
+      </h1>
+      <h2>
+        Please follow the steps to upload a document.
+      </h2>
+      <h3>
+        Step 1:
+      </h3>
+      <label>
+        Pick a category:
+        <div>
+          <WithStyles(Button)
+            aria-haspopup="true"
+            aria-owns={null}
+            onClick={[Function]}
+          >
+            Subject
+          </WithStyles(Button)>
+          <WithStyles(Menu)
+            anchorEl={null}
+            id="Category"
+            onClose={[Function]}
+            open={false}
+          >
+            <WithStyles(MenuItem)
+              onClick={[Function]}
+            >
+              Newsletters
+            </WithStyles(MenuItem)>
+            <WithStyles(MenuItem)
+              onClick={[Function]}
+            >
+              Sports
+            </WithStyles(MenuItem)>
+            <WithStyles(MenuItem)
+              onClick={[Function]}
+            >
+              Teacher Notes
+            </WithStyles(MenuItem)>
+            <WithStyles(MenuItem)
+              onClick={[Function]}
+            >
+              FAQ
+            </WithStyles(MenuItem)>
+            <WithStyles(MenuItem)
+              onClick={[Function]}
+            >
+              School Events
+            </WithStyles(MenuItem)>
+          </WithStyles(Menu)>
+        </div>
+      </label>
+      <br />
+      <h3>
+        Step 2
+      </h3>
+      <label>
+        Add the document title:
+        <input
+          onChange={[Function]}
+          placeholder="Input document name"
+          style={
+            Object {
+              "borderRadius": 5,
+              "height": 8,
+              "marginLeft": 5,
+              "maxWidth": 300,
+              "padding": 5,
+            }
+          }
+          type="text"
+        />
+      </label>
+      <br />
+      <h3>
+        Step 3
+      </h3>
+      <label>
+        Upload the document URL:
+        <input
+          onChange={[Function]}
+          placeholder="File url for upload"
+          style={
+            Object {
+              "borderRadius": 5,
+              "height": 8,
+              "marginLeft": 5,
+              "maxWidth": 300,
+              "padding": 5,
+            }
+          }
+          type="text"
+          value=""
+        />
+      </label>
+      <br />
+      <h4>
+        Step 4
+      </h4>
+      <label>
+        <input
+          onClick={[Function]}
+          style={
+            Object {
+              "height": 20,
+              "margin": "auto",
+              "marginLeft": 5,
+              "verticalAlign": "bottom",
+              "width": 20,
+            }
+          }
+          type="checkBox"
+        />
+          Upload my own image
+      </label>
+      <div>
+        <br />
+        <label>
+          <input
+            onClick={[Function]}
+            style={
+              Object {
+                "height": 20,
+                "margin": "auto",
+                "marginLeft": 5,
+                "verticalAlign": "bottom",
+                "width": 20,
+              }
+            }
+            type="checkBox"
+          />
+            Let us pick an image
+        </label>
+      </div>
+      <br />
+      <h3>
+        Final Step
+      </h3>
+      <WithStyles(Button)
+        onClick={[Function]}
+        variant="contained"
+      >
+        Submit document
+      </WithStyles(Button)>
+    </WithStyles(Typography)>
+  </WithStyles(Paper)>
+</div>
+`;
