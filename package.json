@@ -8,6 +8,7 @@
     "format": "prettier --write \"client/**/*.{js,jsx,css,json}\"",
     "format:check": "prettier --list-different \"client/**/*.{js,jsx,css,json}\"",
     "lint": "eslint \"**/*.{js,jsx}\"",
+    "lint:fix": "eslint --fix \"**/*.{js,jsx}\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack -d --watch",
     "start": "nodemon ./server/server.js"
