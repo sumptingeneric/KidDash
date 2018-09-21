@@ -37,7 +37,7 @@ const Tile = props => {
         <IconButton aria-label="Add to favorites">
           <FavoriteIcon />
         </IconButton>
-        <IconButton aria-label="Bookmark Border">
+        <IconButton aria-label="Bookmark Border" onClick={props.togglePin} >
           {props.isPinned ? <Bookmark /> : <BookmarkBorder />}
         </IconButton>
       </CardActions>
