@@ -17,6 +17,7 @@ const TilesList = props => {
                  tile={tile} 
                  key={tile._id} 
                  isPinned={props.isPinned}
+                 togglePin={props.togglePin}
                 />
             </Grid>
             ))}
