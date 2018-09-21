@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --mode development",
+    "format": "prettier --write \"client/**/*.{js,jsx,css,json}\"",
     "lint": "eslint **/*.{js,jsx} --quiet",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack -d --watch",
