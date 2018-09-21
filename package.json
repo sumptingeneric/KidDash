@@ -15,7 +15,7 @@
   },
   "jest": {
     "snapshotSerializers": [
-      "jest-serializer-enzyme"
+      "enzyme-to-json/serializer"
     ]
   },
   "repository": {
