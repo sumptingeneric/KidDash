@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');
-mongoose.Promise = require('bluebird');
+const mongoose = require("mongoose");
+mongoose.Promise = require("bluebird");
 
 // accommodates connection to either Heroku or localhost
 let uristring =
-  process.env.MONGOLAB_URI || 'mongodb://localhost/KidDashDatabase';
+  process.env.MONGOLAB_URI || "mongodb://localhost/KidDashDatabase";
 
 // second argument avoids console warnings
 mongoose.connect(
@@ -11,8 +11,8 @@ mongoose.connect(
   { useNewUrlParser: true }
 );
 let db = mongoose.connection;
-db.on('error', console.error.bind(console, 'db connection error'));
-db.once('open', () => console.log('Database successfully connected'));
+db.on("error", console.error.bind(console, "db connection error"));
+db.once("open", () => console.log("Database successfully connected"));
 
 let fileSchema = new mongoose.Schema({
   caption: String,
@@ -26,9 +26,9 @@ let fileSchema = new mongoose.Schema({
   likedBy: Array
 });
 
-let User = new mongoose.Schema({
+let userSchema = new mongoose.Schema({
   username: String,
-  email: String,
+  email: { type: String, unique: true },
   type: String, //parent/teacher/admin
   students: Array,
   myDocs: Array, //doc ids
@@ -37,11 +37,12 @@ let User = new mongoose.Schema({
   myLikedDocs: Array
 });
 
-let FileModel = mongoose.model('FileModel', fileSchema);
+let File = mongoose.model("File", fileSchema);
+let User = mongoose.model("User", userSchema);
 
 // retrieve files from db for front end
-const getFiles = (details = {}, response) => {
-  FileModel.find(details).exec((err, data) => {
+const getDocs = (details = {}, response) => {
+  File.find(details).exec((err, data) => {
     if (err) {
       return console.error(`error while retrieving files: ${err}`);
     }
@@ -50,20 +51,37 @@ const getFiles = (details = {}, response) => {
 };
 
 // save a new record into the db
-const saveFile = (fileDetails, response) => {
-  // console.log(`fileDetails from db on line 37 ${JSON.stringify(fileDetails)}`);
-  let newFile = new FileModel(fileDetails);
+const saveFile = (data, response) => {
+  let newFile = new File(data);
+
   newFile.save(err => {
     if (err && err.code !== 11000) {
-      console.error(`error while saving file: ${err}`);
+      console.error(`Error while saving File data: ${err}`);
       response.status(500).send(err);
       return;
     } else if (err && err.code === 11000) {
-      console.error(`URL already exists, cannot save file. Error: ${err}`);
+      console.error(`URL already exists, cannot save File data. Error: ${err}`);
       response.status(400).send(err);
       return;
     }
-    getFiles({}, response);
+    getDocs({}, response);
+  });
+};
+
+const saveUser = (data, response) => {
+  let newUser = new User(data);
+
+  newUser.save(err => {
+    if (err && err.code !== 11000) {
+      console.error(`Error while saving User data: ${err}`);
+      response.status(500).send(err);
+      return;
+    } else if (err && err.code === 11000) {
+      console.error(`URL already exists, cannot save User data. Error: ${err}`);
+      response.status(400).send(err);
+      return;
+    }
+    getDocs({}, response);
   });
 };
 
@@ -95,7 +113,8 @@ const deleteFile = (id, response) => {
   });
 };
 
-module.exports.getFiles = getFiles;
+module.exports.getDocs = getDocs;
 module.exports.saveFile = saveFile;
+module.exports.saveUser = saveUser;
 module.exports.updateFile = updateFile;
 module.exports.deleteFile = deleteFile;
