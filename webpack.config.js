@@ -1,6 +1,6 @@
 const path = require('path');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   module: {
@@ -19,6 +19,21 @@ module.exports = {
             loader: "html-loader"
           }
         ]
+      },
+      {
+        test: /\.(gif|png|jpe?g|svg)$/i,
+        use: [
+          'file-loader',
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              mozjpeg: {
+                progressive: true,
+                quality: 65
+              }
+            },
+          },
+        ],
       }
     ]
   },
@@ -33,7 +48,7 @@ module.exports = {
         to: 'Free-Chalkboard-Backgrounds.jpg',
         toType: 'file'
       },
-    ])
+    ])  
   ],
   devServer: {
     contentBase: path.join(__dirname, 'public'),
