@@ -28,13 +28,11 @@ app.get("/test", (req, res) => {
 });
 app.get("/", (req, res) => {
   if (req.session.token) {
-    console.log("token from ln32");
     res.cookie("token", req.session.token);
     res.json({
       status: "session cookie set"
     });
   } else {
-    console.log("somethin else");
     res.cookie("token", "");
     res.json({
       status: "session cookie not set"

@@ -1,27 +1,33 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import axios from 'axios';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import axios from "axios";
 
-import Header from './components/header.jsx';
-import FilterBar from './components/filterBar.jsx';
-import Container from './components/container.jsx';
-import Admin from './components/admin.jsx';
-import Login from './components/login.jsx';
+import Header from "./components/header.jsx";
+import FilterBar from "./components/filterBar.jsx";
+import Container from "./components/container.jsx";
+import Admin from "./components/admin.jsx";
+import Login from "./components/login.jsx";
+import SignIn from "./components/signin.jsx";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'Home',
-      files: []
+      view: "signin",
+      files: [],
+      username: "",
+      email: "",
+      image: ""
     };
     this.getFilesFromDatabase = this.getFilesFromDatabase.bind(this);
     this.changeView = this.changeView.bind(this);
     this.renderView = this.renderView.bind(this);
+    this.handleSignIn = this.handleSignIn.bind(this);
+    this.handleSignOut = this.handleSignOut.bind(this);
   }
 
   getFilesFromDatabase(category) {
-    let endpoint = '/api/files/';
+    let endpoint = "/api/files/";
     if (category !== undefined) {
       endpoint += category;
       console.log(endpoint);
@@ -39,8 +45,27 @@ class App extends Component {
       });
   }
 
+  handleSignIn(fullName, email, imageUrl) {
+    this.setState({
+      username: fullName,
+      email: email,
+      image: imageUrl
+    });
+    this.changeView("Home");
+  }
+  handleSignOut() {
+    this.setState({
+      username: "",
+      email: "",
+      image: ""
+    });
+  }
+
   componentDidMount() {
     this.getFilesFromDatabase();
+    // if (this.state.username !== '') {
+    //   this.changeView('Home');
+    // }
   }
 
   changeView(option) {
@@ -51,21 +76,31 @@ class App extends Component {
 
   renderView() {
     const { view } = this.state;
-    if (view === 'Admin') {
+    if (this.state.username !== "" && view === "Admin") {
       return (
         <div>
           <Header changeView={this.changeView} />
           <Admin />
         </div>
       );
-    } else if (view === 'Login') {
+    } else if (this.state.username === "" && view === "signin") {
+      return (
+        <div>
+          <Header changeView={this.changeView} />
+          <SignIn
+            handleSignIn={this.handleSignIn}
+            changeView={this.changeView}
+          />
+        </div>
+      );
+    } else if (this.state.username !== "" && view === "Login") {
       return (
         <div>
           <Header changeView={this.changeView} />
           <Login />
         </div>
       );
-    } else if (view === 'Home') {
+    } else if (this.state.username !== "" && view === "Home") {
       return (
         <div>
           <Header
@@ -80,16 +115,11 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <div>
-        {this.renderView()}
-        <div className="g-signin2" data-onsuccess="onSignIn" />
-      </div>
-    );
+    return <div>{this.renderView()}</div>;
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('App'));
+ReactDOM.render(<App />, document.getElementById("App"));
 
 /**
  * NOTES:

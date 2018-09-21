@@ -1,4 +1,4 @@
-const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 module.exports = passport => {
   passport.serializeUser((user, done) => {
     done(null, user);
@@ -10,9 +10,9 @@ module.exports = passport => {
     new GoogleStrategy(
       {
         clientID:
-          '575440888732-lst2joh94qfn4tcv7ae17sbos4cbikk9.apps.googleusercontent.com',
-        clientSecret: 'fKlUmFUTCYA4f06VAJMZKp7r',
-        callbackURL: 'http://localhost:8079/auth/google/callback'
+          "575440888732-lst2joh94qfn4tcv7ae17sbos4cbikk9.apps.googleusercontent.com",
+        clientSecret: "GKETWr7tnUWBXIIXwN8dTyDM",
+        callbackURL: "http://localhost:9876/auth/google/callback"
       },
       (token, refreshToken, profile, done) => {
         console.log(token);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -8,12 +8,12 @@ class SignIn extends React.Component {
 
   componentDidMount() {
     setTimeout(() => {
-      gapi.signin2.render('my-signin2', {
-        scope: 'profile email',
+      gapi.signin2.render("my-signin2", {
+        scope: "profile email",
         width: 250,
         height: 50,
         longtitle: true,
-        theme: 'light',
+        theme: "light",
         onsuccess: this.onSignIn
       });
     }, 0);
@@ -21,9 +21,13 @@ class SignIn extends React.Component {
 
   onSignIn(googleUser) {
     let profile = googleUser.getBasicProfile();
-    this.props.handleSignIn(profile.getName(), profile.getEmail());
+    this.props.handleSignIn(
+      profile.getName(),
+      profile.getEmail(),
+      profile.getImageUrl()
+    );
     // this.props.handleSignIn(profile.getEmail());
-    this.props.changeView('Home');
+    this.props.changeView("Home");
   }
 
   render() {
