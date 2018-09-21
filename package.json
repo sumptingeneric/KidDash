@@ -10,6 +10,7 @@
     "lint": "./node_modules/eslint/bin/eslint.js \"**/*.{js,jsx}\"",
     "lint:fix": "./node_modules/eslint/bin/eslint.js --fix \"**/*.{js,jsx}\"",
     "test": "jest",
+    "test:coverage": "jest --coverage",
     "test:update": "jest -u",
     "start": "node ./server/server.js"
   },
