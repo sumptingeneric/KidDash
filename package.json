@@ -39,9 +39,13 @@
     "axios": "^0.18.0",
     "bluebird": "^3.5.2",
     "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-beta.3",
     "express": "^4.16.3",
     "moment": "^2.22.2",
     "mongoose": "^5.2.13",
+    "passport": "^0.4.0",
+    "passport-google-oauth": "^1.0.0",
     "path": "^0.12.7",
     "react": "^16.5.0",
     "react-dom": "^16.5.0"
