@@ -13,14 +13,7 @@ const TilesList = props => {
         <Grid container spacing={40}>
         {props.files.map((tile) => (
             <Grid key={tile._id} item sm={6} md={4} lg={3}>
-               <Tiles 
-                 tile={tile} 
-                 key={tile._id} 
-                 isUseful={props.isUseful}
-                 toggleUseful={props.toggleUseful}
-                 isPinned={props.isPinned}
-                 togglePin={props.togglePin}
-                />
+               <Tiles tile={tile} key={tile._id} />
             </Grid>
             ))}
         </Grid>   
