@@ -16,6 +16,8 @@ const TilesList = props => {
                <Tiles 
                  tile={tile} 
                  key={tile._id} 
+                 isUseful={props.isUseful}
+                 toggleUseful={props.toggleUseful}
                  isPinned={props.isPinned}
                  togglePin={props.togglePin}
                 />

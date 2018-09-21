@@ -7,9 +7,11 @@ class Container extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isPinned: true
+      isPinned: false,
+      isUseful: false
     }
     this.togglePin = this.togglePin.bind(this);
+    this.toggleUseful = this.toggleUseful.bind(this);
   }
 
   togglePin() {
@@ -23,12 +25,26 @@ class Container extends Component {
       });
     }
   }
+ 
+  toggleUseful() {
+    if (!this.state.isUseful) {
+      this.setState({
+        isUseful: true
+      });
+    } else {
+      this.setState({
+        isUseful: false
+      });
+    }
+  }
 
   render() {
     return (
       <div>
         <TilesList 
-          files={this.props.files} 
+          files={this.props.files}
+          isUseful={this.state.isUseful}
+          toggleUseful={this.toggleUseful} 
           isPinned={this.state.isPinned}
           togglePin={this.togglePin}
         />
