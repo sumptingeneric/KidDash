@@ -10,7 +10,8 @@
     "lint": "./node_modules/eslint/bin/eslint.js \"**/*.{js,jsx}\"",
     "lint:fix": "./node_modules/eslint/bin/eslint.js --fix \"**/*.{js,jsx}\"",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./server/server.js"
+    "build": "webpack -d --watch",
+    "start": "nodemon ./server/server.js"
   },
   "repository": {
     "type": "git",
