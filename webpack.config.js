@@ -12,6 +12,10 @@ module.exports = {
       }
     ]
   },
+  devServer: {
+    contentBase: path.join(__dirname, 'public'),
+    port: 9876
+  },
   entry: './client/app.jsx',
   output: {
     path: path.resolve(__dirname, 'public'),
