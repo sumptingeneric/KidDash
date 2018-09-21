@@ -13,6 +13,11 @@
     "test:update": "jest -u",
     "start": "node ./server/server.js"
   },
+  "jest": {
+    "snapshotSerializers": [
+      "jest-serializer-enzyme"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/justwinn/KidDash.git"
