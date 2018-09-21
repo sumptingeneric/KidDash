@@ -7,7 +7,7 @@ class Container extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isPinned: false
+      isPinned: true
     }
     this.togglePin = this.togglePin.bind(this);
   }

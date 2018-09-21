@@ -42,9 +42,8 @@ const Tile = props => {
           {props.isPinned ? <Bookmark /> : <BookmarkBorder />}
         </IconButton>
         <IconButton aria-label="Bookmark Border">
-          <BookmarkBorder />
+          {props.isPinned ? <Bookmark /> : <BookmarkBorder />}
         </IconButton>
-
       </CardActions>
     </Card>  
   );
