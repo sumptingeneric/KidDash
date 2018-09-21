@@ -12,6 +12,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import BookmarkBorder from '@material-ui/icons/BookmarkBorder';
+import Bookmark from '@material-ui/icons/Bookmark';
 
 
 const Tile = tile => {
@@ -35,6 +37,10 @@ const Tile = tile => {
         <IconButton aria-label="Add to favorites">
           <FavoriteIcon />
         </IconButton>
+        <IconButton aria-label="Bookmark Border">
+          <BookmarkBorder />
+        </IconButton>
+
       </CardActions>
     </Card>  
   );

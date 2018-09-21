@@ -3,13 +3,38 @@ import Admin from './admin.jsx';
 import TilesList from './tilesList.jsx';
 
 
-const Container = props => {
+class Container extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isPinned: false
+    }
+    this.togglePin = this.togglePin.bind(this);
+  }
 
-  return (
-    <div>
-      <TilesList files={props.files} />
-    </div>
-  );
+  togglePin() {
+    if (!this.state.isPinned) {
+      this.setState({
+        isPinned: true
+      });
+    } else {
+      this.setState({
+        isPinned: false
+      });
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <TilesList 
+          files={this.props.files} 
+          isPinned={this.state.isPinned}
+          togglePin={this.togglePin}
+        />
+      </div>
+    );
+  }
 }
 
 export default Container;
