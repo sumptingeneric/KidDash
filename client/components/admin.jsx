@@ -1,38 +1,38 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import axios from 'axios';
-import { defaultFormatUtc } from 'moment';
-import Login from './login.jsx';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import axios from "axios";
+import { defaultFormatUtc } from "moment";
+import Login from "./login.jsx";
 
 // ---------material-ui
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
-import Switch from '@material-ui/core/Switch';
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import { withStyles } from "@material-ui/core/styles";
+import Switch from "@material-ui/core/Switch";
 
 const menuItems = [
   {
-    display: 'Newsletters',
-    value: 'Newsletters'
+    display: "Newsletters",
+    value: "Newsletters"
   },
   {
-    display: 'Sports',
-    value: 'Sports'
+    display: "Sports",
+    value: "Sports"
   },
   {
-    display: 'Teacher Notes',
-    value: 'Teachers_Notes'
+    display: "Teacher Notes",
+    value: "Teachers_Notes"
   },
   {
-    display: 'FAQ',
-    value: 'FAQ'
+    display: "FAQ",
+    value: "FAQ"
   },
   {
-    display: 'School Events',
-    value: 'School_Events'
+    display: "School Events",
+    value: "School_Events"
   }
 ];
 
@@ -40,11 +40,11 @@ class Admin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      caption: '',
-      value: '',
-      category: 'Subject',
-      imgUrl: 'default',
-      pickImg: '',
+      caption: "",
+      value: "",
+      category: "Subject",
+      imgUrl: "default",
+      pickImg: "",
       anchor: null,
       setImg: false,
       ourImg: false
@@ -95,14 +95,14 @@ class Admin extends React.Component {
 
   selectImg() {
     this.setState({
-      pickImg: 'pickImg',
+      pickImg: "pickImg",
       setImg: !this.state.setImg
     });
   }
 
   setOurImg() {
     this.setState({
-      pickImg: 'our',
+      pickImg: "our",
       ourImg: !this.state.ourImg
     });
   }
@@ -110,7 +110,7 @@ class Admin extends React.Component {
   renderImgInput() {
     const { pickImg, setImg } = this.state;
 
-    if (pickImg === 'pickImg' && setImg === true) {
+    if (pickImg === "pickImg" && setImg === true) {
       return (
         <p>
           Paste url to the right:
@@ -134,7 +134,7 @@ class Admin extends React.Component {
   renderOurImgInput() {
     const { pickImg, ourImg } = this.state;
 
-    if (pickImg === 'our' && ourImg === true)
+    if (pickImg === "our" && ourImg === true)
       return <p>We will upload a image for you</p>;
   }
 
@@ -150,17 +150,18 @@ class Admin extends React.Component {
     console.log(`send off url-->: ${fileInfo.doc_url}`);
     console.log(`send off img_url-->: ${fileInfo.img_url}`);
 
-    axios.post('/api/file', {
-      board: this.state.category,
-      caption: this.state.caption,
-      docUrl: this.state.value,
-      imgUrl: this.state.imgUrl
-    })
+    axios
+      .post("/api/file", {
+        board: this.state.category,
+        caption: this.state.caption,
+        docUrl: this.state.value,
+        imgUrl: this.state.imgUrl
+      })
       .then(res => {
-        console.log(res)
-        alert('Document uploaded have a good day.')
+        console.log(res);
+        alert("Document uploaded have a good day.");
       });
-    }
+  }
 
   render() {
     const { anchor } = this.state;
@@ -170,8 +171,8 @@ class Admin extends React.Component {
         <Paper
           style={{
             width: 600,
-            marginLeft: 'auto',
-            marginRight: 'auto',
+            marginLeft: "auto",
+            marginRight: "auto",
             padding: 15
           }}
         >
@@ -184,7 +185,7 @@ class Admin extends React.Component {
               Pick a category:
               <div>
                 <Button
-                  aria-owns={anchor ? 'simple-menu' : null}
+                  aria-owns={anchor ? "simple-menu" : null}
                   aria-haspopup="true"
                   onClick={this.setAnchor}
                 >
@@ -197,9 +198,8 @@ class Admin extends React.Component {
                   onClose={this.unsetAnchor}
                 >
                   {menuItems.map(item => (
-                    <MenuItem
-                      onClick={this.setCategory(item.value)}
-                    >{item.display}
+                    <MenuItem onClick={this.setCategory(item.value)}>
+                      {item.display}
                     </MenuItem>
                   ))}
                 </Menu>
@@ -248,8 +248,8 @@ class Admin extends React.Component {
                   marginLeft: 5,
                   height: 20,
                   width: 20,
-                  margin: 'auto',
-                  verticalAlign: 'bottom'
+                  margin: "auto",
+                  verticalAlign: "bottom"
                 }}
                 type="checkBox"
                 onClick={this.selectImg}
@@ -265,8 +265,8 @@ class Admin extends React.Component {
                     marginLeft: 5,
                     height: 20,
                     width: 20,
-                    margin: 'auto',
-                    verticalAlign: 'bottom'
+                    margin: "auto",
+                    verticalAlign: "bottom"
                   }}
                   type="checkBox"
                   onClick={this.setOurImg}
