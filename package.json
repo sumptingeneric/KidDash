@@ -7,7 +7,7 @@
     "dev": "webpack-dev-server --mode development",
     "format": "prettier --write \"client/**/*.{js,jsx,css,json}\"",
     "format:check": "prettier --list-different \"client/**/*.{js,jsx,css,json}\"",
-    "lint": "eslint **/*.{js,jsx} --quiet",
+    "lint": "eslint \"**/*.{js,jsx}\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack -d --watch",
     "start": "nodemon ./server/server.js"
@@ -41,6 +41,7 @@
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.2",
+    "eslint": "^5.6.0",
     "eslint-config-prettier": "^3.0.1",
     "eslint-plugin-prettier": "^2.6.2",
     "prop-types": "^15.6.2",
