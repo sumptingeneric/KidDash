@@ -63,7 +63,7 @@ const getUsers = (details = {}, response) => {
 const saveFile = (data, response) => {
   let newFile = new File(data);
 
-  newFile.save(err => {
+  newFile.save((err, newFile) => {
     if (err && err.code !== 11000) {
       console.error(`Error while saving File data: ${err}`);
       response.status(500).send(err);
@@ -73,14 +73,14 @@ const saveFile = (data, response) => {
       response.status(400).send(err);
       return;
     }
-    getDocs({}, response);
+    response.status(200).send(newFile);
   });
 };
 
 const saveUser = (data, response) => {
   let newUser = new User(data);
 
-  newUser.save(err => {
+  newUser.save((err, newUser) => {
     if (err && err.code !== 11000) {
       console.error(`Error while saving User data: ${err}`);
       response.status(500).send(err);
@@ -90,14 +90,14 @@ const saveUser = (data, response) => {
       response.status(400).send(err);
       return;
     }
-    getDocs({}, response);
+    response.status(200).send(newUser);
   });
 };
 
 // update the category or caption for a record
 const updateFile = (id, update, response) => {
   // update
-  FileModel.findByIdAndUpdate(id, update, (err, updatedFile) => {
+  File.findByIdAndUpdate(id, update, (err, updatedFile) => {
     if (err) {
       console.error(`Error while updating file. Error: ${err}`);
       response.status(500).send(err);
@@ -111,14 +111,13 @@ const updateFile = (id, update, response) => {
 // delete a record
 const deleteFile = (id, response) => {
   // delete
-  FileModel.findByIdAndRemove(id, (err, deletedFile) => {
+  File.findByIdAndRemove(id, (err, deletedFile) => {
     if (err) {
       console.error(`Error while deleting file from database. Error: ${err}`);
       response.status(500).send(err);
       return;
     }
-    // console.log(`Deleted file with caption: ${deletedFile.caption}`);
-    getFiles({}, response);
+    response.status(200).send(deletedFile);
   });
 };
 

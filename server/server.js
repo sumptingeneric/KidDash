@@ -13,13 +13,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // This GET request handler returns all entries from the database
-app.get("/api/docs/files", (request, response) => {
+app.get("/api/files", (request, response) => {
   database.getFiles(undefined, response);
 });
 
 // This GET request handler returns all entries in the database with a specific category
 // that is appended to the end of the endpoint e.g. ('/api/docs/Sports')
-app.get("/api/docs/files/:category", (request, response) => {
+app.get("/api/files/:category", (request, response) => {
   // If a GET request is made to our server to the '/api/docs/Sports' endpoint
   // our request.params equals {category: "Sports"}
   // if the endpoint instead is '/api/docs/Newsletter', then our
@@ -27,23 +27,23 @@ app.get("/api/docs/files/:category", (request, response) => {
   database.getFiles(request.params, response);
 });
 
-app.get("/api/docs/users", (request, response) => {
+app.get("/api/users", (request, response) => {
   database.getUsers(undefined, response);
 });
 
-app.post("/api/docs/file", (request, response) => {
+app.post("/api/file", (request, response) => {
   database.saveFile(request.body, response);
 });
 
-app.post("/api/docs/user", (request, response) => {
+app.post("/api/user", (request, response) => {
   database.saveUser(request.body, response);
 });
 
-app.delete("/api/docs", (request, response) => {
+app.delete("/api/file", (request, response) => {
   database.deleteFile(request.body.id, response);
 });
 
-app.put("/api/docs", (request, response) => {
+app.put("/api/file", (request, response) => {
   database.updateFile(request.body.id, request.body.update, response);
 });
 
