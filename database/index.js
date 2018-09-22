@@ -104,13 +104,12 @@ const updateFile = (id, update, response) => {
       return;
     }
     // console.log(`Updated file with previous caption: ${updatedFile.caption}`); // console.logs previous state of file
-    getFiles({}, response);
+    response.status(200).send(updatedFile);
   });
 };
 
 // delete a record
 const deleteFile = (id, response) => {
-  // delete
   File.findByIdAndRemove(id, (err, deletedFile) => {
     if (err) {
       console.error(`Error while deleting file from database. Error: ${err}`);
@@ -121,9 +120,21 @@ const deleteFile = (id, response) => {
   });
 };
 
+const deleteUser = (id, response) => {
+  User.findByIdAndRemove(id, (err, deletedUser) => {
+    if (err) {
+      console.error(`Error while deleting User from database. Error: ${err}`);
+      response.status(500).send(err);
+      return;
+    }
+    response.status(200).send(deletedUser);
+  });
+};
+
 module.exports.getFiles = getFiles;
 module.exports.getUsers = getUsers;
 module.exports.saveFile = saveFile;
 module.exports.saveUser = saveUser;
 module.exports.updateFile = updateFile;
 module.exports.deleteFile = deleteFile;
+module.exports.deleteUser = deleteUser;

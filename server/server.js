@@ -39,12 +39,16 @@ app.post("/api/user", (request, response) => {
   database.saveUser(request.body, response);
 });
 
+app.put("/api/file", (request, response) => {
+  database.updateFile(request.body.id, request.body.update, response);
+});
+
 app.delete("/api/file", (request, response) => {
   database.deleteFile(request.body.id, response);
 });
 
-app.put("/api/file", (request, response) => {
-  database.updateFile(request.body.id, request.body.update, response);
+app.delete("/api/user", (request, response) => {
+  database.deleteUser(request.body.id, response);
 });
 
 app.listen(port, () => console.log(`Server listening on port ${port}`));
