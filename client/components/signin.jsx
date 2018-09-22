@@ -22,28 +22,34 @@ class SignIn extends React.Component {
 
   onSignIn(googleUser) {
     let profile = googleUser.getBasicProfile();
-    this.props.handleSignIn(
-      profile.getName(),
-      profile.getEmail(),
-      profile.getImageUrl()
-    );
-
     axios
-      .get("http://localhost:8079/login?email=" + profile.getEmail())
+      .get("/login", {
+        params: {
+          username: profile.getName(),
+          email: profile.getEmail()
+        }
+      })
       .then(res => {
+        this.props.handleSignIn(
+          profile.getName(),
+          profile.getEmail(),
+          profile.getImageUrl()
+        );
+        this.props.changeView("Home");
+
+        console.log(res.data);
         console.log("REQUEST SENT");
       })
       .catch(err => {
         throw err;
       });
     // this.props.handleSignIn(profile.getEmail());
-    this.props.changeView("Home");
   }
 
   render() {
     return (
       <div>
-        <div id="my-signin2" data-onsuccess={this.onSignIn} />
+        <div id="my-signin2" />
       </div>
     );
   }

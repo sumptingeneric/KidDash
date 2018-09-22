@@ -14,22 +14,30 @@ let port = process.env.PORT || 9876;
 app.use(express.static(path.join(__dirname, "../public")));
 
 app.get("/login", (req, res) => {
-  database.userSchema
-    .find({ email: req.query.email })
-    .then(res => {
-      console.log(res);
+  database.User.find({ email: req.query.email })
+    .then(result => {
+      let type = "Parent";
+      if (req.query.email.includes(".edu")) {
+        type = "Teacher";
+      }
+      if (result.length === 0) {
+        database.saveUser(
+          {
+            username: req.query.username,
+            email: req.query.email,
+            type: type
+          },
+          res
+        );
+      } else {
+        res.send(result);
+      }
     })
     .catch(err => {
       throw err;
     });
-  res.send();
 });
 
-app.get("/signup", (req, res) => {
-  database.UserModel.find({ email: request.query.email }).then(res => {
-    console.log(res);
-  });
-});
 // auth(passport);
 // app.use(passport.initialize());
 
@@ -86,7 +94,7 @@ app.use(bodyParser.json());
 // });
 
 // This GET request handler returns all entries from the database
-app.get("/api/docs/", (request, response) => {
+app.get("/api/files/", (request, response) => {
   database.getFiles(undefined, response);
 });
 
