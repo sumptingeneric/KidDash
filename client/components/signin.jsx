@@ -29,7 +29,7 @@ class SignIn extends React.Component {
     );
 
     axios
-      .get("http://localhost:8076/login?email=" + profile.getEmail())
+      .get("http://localhost:8079/login?email=" + profile.getEmail())
       .then(res => {
         console.log("REQUEST SENT");
       })

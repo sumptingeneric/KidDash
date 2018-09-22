@@ -32,10 +32,10 @@ app.get("/signup", (req, res) => {
 // auth(passport);
 // app.use(passport.initialize());
 
-// app.use(express.static(path.join(__dirname, "../public")));
+app.use(express.static(path.join(__dirname, "../public")));
 
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // app.use(
 //   cookieSession({
