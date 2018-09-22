@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -26,6 +27,15 @@ class SignIn extends React.Component {
       profile.getEmail(),
       profile.getImageUrl()
     );
+
+    axios
+      .get("http://localhost:8076/login?email=" + profile.getEmail())
+      .then(res => {
+        console.log("REQUEST SENT");
+      })
+      .catch(err => {
+        throw err;
+      });
     // this.props.handleSignIn(profile.getEmail());
     this.props.changeView("Home");
   }
