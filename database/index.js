@@ -152,12 +152,4 @@ module.exports.updateFile = updateFile;
 module.exports.updateUser = updateUser;
 module.exports.deleteFile = deleteFile;
 module.exports.deleteUser = deleteUser;
-<<<<<<< HEAD
-
-module.exports.User = User;
-module.exports.File = File;
-
-module.exports.db = db;
-=======
 //usermodel
->>>>>>> Check if User is in the database via email.

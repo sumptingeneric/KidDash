@@ -4,7 +4,7 @@ const googleCredentials = {
   clientID:
     "575440888732-lst2joh94qfn4tcv7ae17sbos4cbikk9.apps.googleusercontent.com",
   clientSecret: "GKETWr7tnUWBXIIXwN8dTyDM",
-  callbackURL: "http://localhost:8079/auth/google/callback"
+  callbackURL: "http://localhost:9876/auth/google/callback"
 };
 
 const verificationCb = (token, refreshToken, profile, done) => {
