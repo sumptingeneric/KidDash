@@ -152,4 +152,5 @@ module.exports.updateFile = updateFile;
 module.exports.updateUser = updateUser;
 module.exports.deleteFile = deleteFile;
 module.exports.deleteUser = deleteUser;
+module.exports.userSchema = userSchema;
 //usermodel

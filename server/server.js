@@ -14,7 +14,8 @@ let port = process.env.PORT || 9876;
 app.use(express.static(path.join(__dirname, "../public")));
 
 app.get("/login", (req, res) => {
-  database.UserModel.find({ email: req.query.email })
+  database.userSchema
+    .find({ email: req.query.email })
     .then(res => {
       console.log(res);
     })
