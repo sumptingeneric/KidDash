@@ -96,7 +96,6 @@ const saveUser = (data, response) => {
 
 // update the category or caption for a record
 const updateFile = (id, update, response) => {
-  // update
   File.findByIdAndUpdate(id, update, (err, updatedFile) => {
     if (err) {
       console.error(`Error while updating file. Error: ${err}`);
@@ -105,6 +104,18 @@ const updateFile = (id, update, response) => {
     }
     // console.log(`Updated file with previous caption: ${updatedFile.caption}`); // console.logs previous state of file
     response.status(200).send(updatedFile);
+  });
+};
+
+const updateUser = (id, update, response) => {
+  User.findByIdAndUpdate(id, update, (err, updatedUser) => {
+    if (err) {
+      console.error(`Error while updating User. Error: ${err}`);
+      response.status(500).send(err);
+      return;
+    }
+    // console.log(`Updated User with previous caption: ${updatedUser.caption}`); // console.logs previous state of User
+    response.status(200).send(updatedUser);
   });
 };
 
@@ -136,5 +147,6 @@ module.exports.getUsers = getUsers;
 module.exports.saveFile = saveFile;
 module.exports.saveUser = saveUser;
 module.exports.updateFile = updateFile;
+module.exports.updateUser = updateUser;
 module.exports.deleteFile = deleteFile;
 module.exports.deleteUser = deleteUser;

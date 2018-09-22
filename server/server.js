@@ -43,6 +43,10 @@ app.put("/api/file", (request, response) => {
   database.updateFile(request.body.id, request.body.update, response);
 });
 
+app.put("/api/user", (request, response) => {
+  database.updateUser(request.body.id, request.body.update, response);
+});
+
 app.delete("/api/file", (request, response) => {
   database.deleteFile(request.body.id, response);
 });
