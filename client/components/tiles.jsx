@@ -56,7 +56,7 @@ class Tile extends Component {
     return (
       <Card title={this.props.tile.category} className="card" style={{maxWidth: 345}} elevation={4}>
         <CardActionArea style={{display:'flex', justifyContent: "space-around"}} >
-          <CardMedia className="media" style={{height: 190, width: 345, objectFit: 'cover'}} image={this.props.tile.img_url} component="img"/>
+          <CardMedia className="media" style={{height: 190, width: 345, objectFit: 'cover'}} image={this.props.tile.imgUrl} component="img"/>
         </CardActionArea>
         <CardContent>
           <Typography id='cardCaption' gutterBottom variant="headline" component="h2">
@@ -67,7 +67,7 @@ class Tile extends Component {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" color="primary" href={this.props.tile.doc_url}>
+          <Button size="small" color="primary" href={this.props.tile.docUrl}>
             Open Document
           </Button>
           <IconButton aria-label="Add to favorites" onClick={this.toggleUseful}>
