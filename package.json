@@ -42,6 +42,8 @@
     "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-beta.3",
     "express": "^4.16.3",
+    "express-partials": "^0.3.0",
+    "express-session": "^1.15.6",
     "moment": "^2.22.2",
     "mongoose": "^5.2.13",
     "passport": "^0.4.0",

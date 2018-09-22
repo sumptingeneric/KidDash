@@ -76,14 +76,14 @@ class App extends Component {
 
   renderView() {
     const { view } = this.state;
-    if (this.state.username !== "" && view === "Admin") {
+    if (view === "Admin") {
       return (
         <div>
           <Header changeView={this.changeView} />
           <Admin />
         </div>
       );
-    } else if (this.state.username === "" && view === "signin") {
+    } else if (view === "signin") {
       return (
         <div>
           <Header changeView={this.changeView} />
@@ -93,14 +93,14 @@ class App extends Component {
           />
         </div>
       );
-    } else if (this.state.username !== "" && view === "Login") {
+    } else if (view === "Login") {
       return (
         <div>
           <Header changeView={this.changeView} />
           <Login />
         </div>
       );
-    } else if (this.state.username !== "" && view === "Home") {
+    } else if (view === "Home") {
       return (
         <div>
           <Header
