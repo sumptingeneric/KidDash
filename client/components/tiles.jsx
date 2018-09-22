@@ -11,35 +11,76 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import Favorite from '@material-ui/icons/Favorite';
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
+import BookmarkBorder from '@material-ui/icons/BookmarkBorder';
+import Bookmark from '@material-ui/icons/Bookmark';
 
 
-const Tile = tile => {
-  return (
-    <Card title={tile.category} className="card" style={{maxWidth: 345}} elevation={4}>
-      <CardActionArea style={{display:'flex', justifyContent: "space-around"}} >
-        <CardMedia className="media" style={{height: 190, width: 345, objectFit: 'cover'}} image={tile.img_url} component="img"/>
-      </CardActionArea>
-      <CardContent>
-        <Typography id='cardCaption' gutterBottom variant="headline" component="h2">
-          {tile.caption}
-        </Typography>
-        <Typography component="p">
-          {moment(tile.timeStamp).format("MMMM Do YYYY")}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small" color="primary" href={tile.doc_url}>
-          Open Document
-        </Button>
-        <IconButton aria-label="Add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-      </CardActions>
-    </Card>  
-  );
+class Tile extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isPinned: false,
+      isUseful: false
+    }
+    this.togglePin = this.togglePin.bind(this);
+    this.toggleUseful = this.toggleUseful.bind(this);
+  }
+
+  togglePin() {
+    if (!this.state.isPinned) {
+      this.setState({
+        isPinned: true
+      });
+    } else {
+      this.setState({
+        isPinned: false
+      });
+    }
+  }
+ 
+  toggleUseful() {
+    if (!this.state.isUseful) {
+      this.setState({
+        isUseful: true
+      });
+    } else {
+      this.setState({
+        isUseful: false
+      });
+    }
+  }
+
+  render() {
+    return (
+      <Card title={this.props.tile.category} className="card" style={{maxWidth: 345}} elevation={4}>
+        <CardActionArea style={{display:'flex', justifyContent: "space-around"}} >
+          <CardMedia className="media" style={{height: 190, width: 345, objectFit: 'cover'}} image={this.props.tile.imgUrl} component="img"/>
+        </CardActionArea>
+        <CardContent>
+          <Typography id='cardCaption' gutterBottom variant="headline" component="h2">
+            {this.props.tile.caption}
+          </Typography>
+          <Typography component="p">
+            {moment(this.props.tile.timeStamp).format("MMMM Do YYYY")}
+          </Typography>
+        </CardContent>
+        <CardActions>
+          <Button size="small" color="primary" href={this.props.tile.docUrl}>
+            Open Document
+          </Button>
+          <IconButton aria-label="Add to favorites" onClick={this.toggleUseful}>
+            {this.state.isUseful ? <Favorite /> : <FavoriteBorder />}
+          </IconButton>
+          <IconButton aria-label="Bookmark Border" onClick={this.togglePin} >
+            {this.state.isPinned ? <Bookmark /> : <BookmarkBorder />}
+          </IconButton>
+        </CardActions>
+      </Card>  
+    );
+  }
 }
-
 
 export default Tile;
 
