@@ -22,7 +22,7 @@ class Tile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isPinned: false,
+      isPinned: this.props.tile.pinnedBy.includes("currentUserId"),
       isUseful: false
     }
     this.updatePin = this.updatePin.bind(this);
@@ -33,14 +33,15 @@ class Tile extends Component {
 
   updatePin(tile) {
     let pinnedBy = tile.pinnedBy;
-    console.log('This is the pinnedBy array: ', pinnedBy);
+    console.log('This is the pinnedBy array before it was updated: ', pinnedBy);
     console.log('This is the state of isPinned before the call to update: ', this.state.isPinned);
     if (!this.state.isPinned) {
-      pinnedBy.push("user who clicked to be removed");
+      pinnedBy.push("currentUserId");
     } else {
-      let indexOfUserToRemove = pinnedBy.lastIndexOf("user who clicked");
+      let indexOfUserToRemove = pinnedBy.indexOf("currentUserId");
       pinnedBy.splice(indexOfUserToRemove, 1);   
     }
+    console.log('This is the pinnedBy array after it was updated: ', pinnedBy);
     axios.put('/api/file', {
       id: tile._id,
       update: {
