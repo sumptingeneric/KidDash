@@ -23,7 +23,7 @@ class Tile extends Component {
     super(props);
     this.state = {
       isPinned: this.props.tile.pinnedBy.includes("currentUserId"),
-      isUseful: false
+      isUseful: this.props.tile.likedBy.includes("currentUserId")
     }
     this.updatePin = this.updatePin.bind(this);
     this.updateUseful = this.updateUseful.bind(this);
@@ -33,15 +33,12 @@ class Tile extends Component {
 
   updatePin(tile) {
     let pinnedBy = tile.pinnedBy;
-    console.log('This is the pinnedBy array before it was updated: ', pinnedBy);
-    console.log('This is the state of isPinned before the call to update: ', this.state.isPinned);
     if (!this.state.isPinned) {
       pinnedBy.push("currentUserId");
     } else {
       let indexOfUserToRemove = pinnedBy.indexOf("currentUserId");
       pinnedBy.splice(indexOfUserToRemove, 1);   
     }
-    console.log('This is the pinnedBy array after it was updated: ', pinnedBy);
     axios.put('/api/file', {
       id: tile._id,
       update: {
@@ -49,18 +46,33 @@ class Tile extends Component {
       }
     })
       .then(res => {
-        console.log('The following file was updated: ', res);
         this.togglePin();
-        console.log('This is the state of isPinned after the call to update: ', this.state.isPinned);
-
       })
       .catch(err => {
         console.log(err);
       });
   }
 
-  updateUseful(id) {
-    
+  updateUseful(tile) {
+    let likedBy = tile.likedBy;
+    if (!this.state.isUseful) {
+      likedBy.push("currentUserId");
+    } else {
+      let indexOfUserToRemove = likedBy.indexOf("currentUserId");
+      likedBy.splice(indexOfUserToRemove, 1);   
+    }
+    axios.put('/api/file', {
+      id: tile._id,
+      update: {
+        likedBy: likedBy
+      }
+    })
+      .then(res => {
+        this.toggleUseful();
+      })
+      .catch(err => {
+        console.log(err);
+      });    
   }
 
   togglePin() {
@@ -105,7 +117,7 @@ class Tile extends Component {
           <Button size="small" color="primary" href={this.props.tile.docUrl}>
             Open Document
           </Button>
-          <IconButton aria-label="Add to favorites" onClick={this.toggleUseful}>
+          <IconButton aria-label="Add to favorites" onClick={() => this.updateUseful(this.props.tile)} >
             {this.state.isUseful ? <Favorite /> : <FavoriteBorder />}
           </IconButton>
           <IconButton aria-label="Bookmark Border" onClick={() => this.updatePin(this.props.tile)} >
