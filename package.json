@@ -4,14 +4,20 @@
   "description": "Greenfield Project  ## Team   - __Product Owner__: Jessica    - __Scrum Master__: Aiman   - __Development Team Members__: Anthony, Ryan, Justin ## Table of Contents 1. [Usage](#Usage) 1. [Requirements](#requirements) 1. [Development](#development)     1. [Installing Dependencies](#installing-dependencies)     1. [Tasks](#tasks) 1. [Team](#team) 1. [Contributing](#contributing) ## Usage > Some usage instructions ## Requirements - Node 0.10.x - Redis 2.6.x - Postgresql 9.1.x - etc - etc ## Development ### Installing Dependencies From within the root directory: ```sh sudo npm install -g bower npm install bower install ``` ### Roadmap View the project roadmap [here](LINK_TO_PROJECT_ISSUES) ## Contributing See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --open --mode development & nodemon ./server/server.js",
+    "dev": "webpack-dev-server --open --hot --mode development & nodemon ./server/server.js",
     "format": "prettier --write \"client/**/*.{js,jsx,css,json}\"",
     "format:check": "prettier --list-different \"client/**/*.{js,jsx,css,json}\"",
     "lint": "./node_modules/eslint/bin/eslint.js \"**/*.{js,jsx}\"",
     "lint:fix": "./node_modules/eslint/bin/eslint.js --fix \"**/*.{js,jsx}\"",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack -d --watch",
-    "start": "nodemon ./server/server.js"
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:update": "jest -u",
+    "start": "node ./server/server.js"
+  },
+  "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
   },
   "repository": {
     "type": "git",
@@ -41,12 +47,21 @@
     "@babel/core": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^9.0.0",
+    "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.2",
+    "copy-webpack-plugin": "^4.5.2",
+    "enzyme": "^3.6.0",
+    "enzyme-adapter-react-16": "^1.5.0",
+    "enzyme-to-json": "^3.3.4",
     "eslint": "^5.6.0",
     "eslint-config-prettier": "^3.0.1",
     "eslint-plugin-prettier": "^2.6.2",
     "eslint-plugin-react": "^7.11.1",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "jest": "^23.6.0",
     "prop-types": "^15.6.2",
     "webpack": "^4.17.2",
     "webpack-cli": "^3.1.0",
