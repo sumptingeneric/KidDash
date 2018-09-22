@@ -13,18 +13,22 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // This GET request handler returns all entries from the database
-app.get("/api/docs/", (request, response) => {
+app.get("/api/docs/files", (request, response) => {
   database.getFiles(undefined, response);
 });
 
 // This GET request handler returns all entries in the database with a specific category
 // that is appended to the end of the endpoint e.g. ('/api/docs/Sports')
-app.get("/api/docs/:category", (request, response) => {
+app.get("/api/docs/files/:category", (request, response) => {
   // If a GET request is made to our server to the '/api/docs/Sports' endpoint
   // our request.params equals {category: "Sports"}
   // if the endpoint instead is '/api/docs/Newsletter', then our
   // request.params equals {category: "Newsletter"} and so on.
   database.getFiles(request.params, response);
+});
+
+app.get("/api/docs/users", (request, response) => {
+  database.getUsers(undefined, response);
 });
 
 app.post("/api/docs/file", (request, response) => {

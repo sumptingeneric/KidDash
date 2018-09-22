@@ -41,10 +41,19 @@ let File = mongoose.model("File", fileSchema);
 let User = mongoose.model("User", userSchema);
 
 // retrieve files from db for front end
-const getDocs = (details = {}, response) => {
+const getFiles = (details = {}, response) => {
   File.find(details).exec((err, data) => {
     if (err) {
-      return console.error(`error while retrieving files: ${err}`);
+      return console.error(`Error while retrieving files: ${err}`);
+    }
+    response.status(200).send(data);
+  });
+};
+
+const getUsers = (details = {}, response) => {
+  User.find(details).exec((err, data) => {
+    if (err) {
+      return console.error(`Error while retrieving users: ${err}`);
     }
     response.status(200).send(data);
   });
@@ -113,7 +122,8 @@ const deleteFile = (id, response) => {
   });
 };
 
-module.exports.getDocs = getDocs;
+module.exports.getFiles = getFiles;
+module.exports.getUsers = getUsers;
 module.exports.saveFile = saveFile;
 module.exports.saveUser = saveUser;
 module.exports.updateFile = updateFile;
