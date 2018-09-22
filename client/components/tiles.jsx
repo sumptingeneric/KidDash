@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 const moment = require('moment');
+const axios = require('axios');
 
 
 //Material UI Imports
@@ -24,33 +25,66 @@ class Tile extends Component {
       isPinned: false,
       isUseful: false
     }
+    this.updatePin = this.updatePin.bind(this);
+    this.updateUseful = this.updateUseful.bind(this);
     this.togglePin = this.togglePin.bind(this);
     this.toggleUseful = this.toggleUseful.bind(this);
+  }
+
+  updatePin(tile) {
+    let pinnedBy = tile.pinnedBy;
+    console.log('This is the pinnedBy array: ', pinnedBy);
+    console.log('This is the state of isPinned before the call to update: ', this.state.isPinned);
+    if (!this.state.isPinned) {
+      pinnedBy.push("user who clicked to be removed");
+    } else {
+      let indexOfUserToRemove = pinnedBy.lastIndexOf("user who clicked");
+      pinnedBy.splice(indexOfUserToRemove, 1);   
+    }
+    axios.put('/api/file', {
+      id: tile._id,
+      update: {
+        pinnedBy: pinnedBy
+      }
+    })
+      .then(res => {
+        console.log('The following file was updated: ', res);
+        this.togglePin();
+        console.log('This is the state of isPinned after the call to update: ', this.state.isPinned);
+
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  updateUseful(id) {
+    
   }
 
   togglePin() {
     if (!this.state.isPinned) {
       this.setState({
         isPinned: true
-      });
+      });  
     } else {
       this.setState({
         isPinned: false
-      });
-    }
-  }
+      });  
+    }  
+  }  
  
   toggleUseful() {
     if (!this.state.isUseful) {
       this.setState({
         isUseful: true
-      });
+      });  
     } else {
       this.setState({
         isUseful: false
-      });
-    }
-  }
+      });  
+    }  
+  }  
 
   render() {
     return (
@@ -73,7 +107,7 @@ class Tile extends Component {
           <IconButton aria-label="Add to favorites" onClick={this.toggleUseful}>
             {this.state.isUseful ? <Favorite /> : <FavoriteBorder />}
           </IconButton>
-          <IconButton aria-label="Bookmark Border" onClick={this.togglePin} >
+          <IconButton aria-label="Bookmark Border" onClick={() => this.updatePin(this.props.tile)} >
             {this.state.isPinned ? <Bookmark /> : <BookmarkBorder />}
           </IconButton>
         </CardActions>
