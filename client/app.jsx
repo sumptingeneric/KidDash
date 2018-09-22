@@ -22,7 +22,7 @@ class App extends Component {
   }
 
   getFilesFromDatabase(category) {
-    let endpoint = '/api/docs/';
+    let endpoint = '/api/files/';
     if (category !== undefined) {
       endpoint += category;
       console.log(endpoint);
