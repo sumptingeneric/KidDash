@@ -134,17 +134,22 @@ class Admin extends React.Component {
 
   handleClick() {
     let fileInfo = {};
-    fileInfo.category = this.state.category;
+    fileInfo.board = this.state.category;
     fileInfo.caption = this.state.caption;
-    fileInfo.doc_url = this.state.value;
-    fileInfo.img_url = this.state.imgUrl;
+    fileInfo.docUrl = this.state.value;
+    fileInfo.imgUrl = this.state.imgUrl;
 
     console.log(`send off category-->: ${fileInfo.category}`);
     console.log(`send off caption-->: ${fileInfo.caption}`);
     console.log(`send off url-->: ${fileInfo.doc_url}`);
     console.log(`send off img_url-->: ${fileInfo.img_url}`);
 
-    axios.post('/api/docs', {fileInfo})
+    axios.post('/api/file', {
+      board: this.state.category,
+      caption: this.state.caption,
+      docUrl: this.state.value,
+      imgUrl: this.state.imgUrl
+    })
       .then(res => {
         console.log(res)
         alert('Document uploaded have a good day.')
@@ -179,7 +184,7 @@ class Admin extends React.Component {
                 >
                   {menuItems.map(item => (
                     <MenuItem 
-                    onClick={this.setCategory(item.value)}
+                      onClick={this.setCategory(item.value)}
                     >{item.display}
                     </MenuItem>
                   ))}
