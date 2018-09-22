@@ -12,18 +12,12 @@ app.use(express.static(path.join(__dirname, "../public")));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// This GET request handler returns all entries from the database
+// API Endpoints
 app.get("/api/files", (request, response) => {
   database.getFiles(undefined, response);
 });
 
-// This GET request handler returns all entries in the database with a specific category
-// that is appended to the end of the endpoint e.g. ('/api/docs/Sports')
 app.get("/api/files/:category", (request, response) => {
-  // If a GET request is made to our server to the '/api/docs/Sports' endpoint
-  // our request.params equals {category: "Sports"}
-  // if the endpoint instead is '/api/docs/Newsletter', then our
-  // request.params equals {category: "Newsletter"} and so on.
   database.getFiles(request.params, response);
 });
 

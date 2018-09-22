@@ -40,7 +40,7 @@ let userSchema = new mongoose.Schema({
 let File = mongoose.model("File", fileSchema);
 let User = mongoose.model("User", userSchema);
 
-// retrieve files from db for front end
+// GET
 const getFiles = (details = {}, response) => {
   File.find(details).exec((err, data) => {
     if (err) {
@@ -59,7 +59,7 @@ const getUsers = (details = {}, response) => {
   });
 };
 
-// save a new record into the db
+// POST
 const saveFile = (data, response) => {
   let newFile = new File(data);
 
@@ -69,7 +69,9 @@ const saveFile = (data, response) => {
       response.status(500).send(err);
       return;
     } else if (err && err.code === 11000) {
-      console.error(`URL already exists, cannot save File data. Error: ${err}`);
+      console.error(
+        `File URL already exists, cannot save File data. Error: ${err}`
+      );
       response.status(400).send(err);
       return;
     }
@@ -86,7 +88,9 @@ const saveUser = (data, response) => {
       response.status(500).send(err);
       return;
     } else if (err && err.code === 11000) {
-      console.error(`URL already exists, cannot save User data. Error: ${err}`);
+      console.error(
+        `User email already exists, cannot save User data. Error: ${err}`
+      );
       response.status(400).send(err);
       return;
     }
@@ -94,15 +98,14 @@ const saveUser = (data, response) => {
   });
 };
 
-// update the category or caption for a record
+// PUT
 const updateFile = (id, update, response) => {
   File.findByIdAndUpdate(id, update, (err, updatedFile) => {
     if (err) {
-      console.error(`Error while updating file. Error: ${err}`);
+      console.error(`Error while updating File data. Error: ${err}`);
       response.status(500).send(err);
       return;
     }
-    // console.log(`Updated file with previous caption: ${updatedFile.caption}`); // console.logs previous state of file
     response.status(200).send(updatedFile);
   });
 };
@@ -110,20 +113,19 @@ const updateFile = (id, update, response) => {
 const updateUser = (id, update, response) => {
   User.findByIdAndUpdate(id, update, (err, updatedUser) => {
     if (err) {
-      console.error(`Error while updating User. Error: ${err}`);
+      console.error(`Error while updating User data. Error: ${err}`);
       response.status(500).send(err);
       return;
     }
-    // console.log(`Updated User with previous caption: ${updatedUser.caption}`); // console.logs previous state of User
     response.status(200).send(updatedUser);
   });
 };
 
-// delete a record
+// DELETE
 const deleteFile = (id, response) => {
   File.findByIdAndRemove(id, (err, deletedFile) => {
     if (err) {
-      console.error(`Error while deleting file from database. Error: ${err}`);
+      console.error(`Error while deleting File from database. Error: ${err}`);
       response.status(500).send(err);
       return;
     }
