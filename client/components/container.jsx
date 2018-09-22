@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
-import Admin from './admin.jsx';
-import TilesList from './tilesList.jsx';
-
+import React from "react";
+import TilesList from "./tilesList.jsx";
 
 const Container = props => {
-
   return (
     <div>
-      <TilesList files={props.files} />
+      <TilesList
+        files={props.files}
+        role={props.role}
+        deleteFile={props.deleteFile}
+      />
     </div>
   );
-}
+};
 
 export default Container;
 
