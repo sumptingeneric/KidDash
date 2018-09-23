@@ -21,9 +21,9 @@ let fileSchema = new mongoose.Schema({
   timeStamp: { type: Date, default: Date.now },
   board: String,
   teacherComments: String,
-  uploadedBy: Array,
-  pinnedBy: Array,
-  likedBy: Array
+  uploadedBy: String,
+  pinnedBy: [String],
+  likedBy: [String]
 });
 
 let userSchema = new mongoose.Schema({
@@ -152,3 +152,8 @@ module.exports.updateFile = updateFile;
 module.exports.updateUser = updateUser;
 module.exports.deleteFile = deleteFile;
 module.exports.deleteUser = deleteUser;
+
+module.exports.User = User;
+module.exports.File = File;
+
+module.exports.db = db;
