@@ -79,39 +79,21 @@ class Tile extends Component {
   }
 
   togglePin() {
-    if (!this.state.isPinned) {
-      this.setState({
-        isPinned: true
-      });  
-    } else {
-      this.setState({
-        isPinned: false
-      });  
-    }  
+    this.setState({
+      isPinned: !this.state.isPinned
+    });
   }  
  
   toggleUseful() {
-    if (!this.state.isUseful) {
-      this.setState({
-        isUseful: true
-      });  
-    } else {
-      this.setState({
-        isUseful: false
-      });  
-    }  
+    this.setState({
+      isUseful: !this.state.isUseful
+    });
   }  
 
   toggleShowModal() {
-    if (!this.state.showModal) {
-      this.setState({
-        showModal: true
-      });  
-    } else {
-      this.setState({
-        showModal: false
-      });  
-    }      
+    this.setState({
+      showModal: !this.state.showModal
+    });
   }
 
   render() {
