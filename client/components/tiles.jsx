@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import Modal from "./modal.jsx";
+
 const moment = require('moment');
 const axios = require('axios');
-
 
 //Material UI Imports
 import Card from '@material-ui/core/Card';
@@ -23,12 +24,14 @@ class Tile extends Component {
     super(props);
     this.state = {
       isPinned: this.props.tile.pinnedBy.includes("currentUserId"),
-      isUseful: this.props.tile.likedBy.includes("currentUserId")
+      isUseful: this.props.tile.likedBy.includes("currentUserId"), 
+      showModal: false
     }
     this.updatePin = this.updatePin.bind(this);
     this.updateUseful = this.updateUseful.bind(this);
     this.togglePin = this.togglePin.bind(this);
     this.toggleUseful = this.toggleUseful.bind(this);
+    this.toggleShowModal = this.toggleShowModal.bind(this);
   }
 
   updatePin(tile) {
@@ -99,11 +102,29 @@ class Tile extends Component {
     }  
   }  
 
+  toggleShowModal() {
+    if (!this.state.showModal) {
+      this.setState({
+        showModal: true
+      });  
+    } else {
+      this.setState({
+        showModal: false
+      });  
+    }      
+  }
+
   render() {
     return (
       <Card title={this.props.tile.category} className="card" style={{maxWidth: 345}} elevation={4}>
         <CardActionArea style={{display:'flex', justifyContent: "space-around"}} >
-          <CardMedia className="media" style={{height: 190, width: 345, objectFit: 'cover'}} image={this.props.tile.imgUrl} component="img"/>
+          <CardMedia 
+            className="media" 
+            style={{height: 190, width: 345, objectFit: 'cover'}} 
+            image={this.props.tile.imgUrl} 
+            component="img"
+            onClick={this.toggleShowModal}
+          />
         </CardActionArea>
         <CardContent>
           <Typography id='cardCaption' gutterBottom variant="headline" component="h2">
