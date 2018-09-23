@@ -10,6 +10,12 @@ let port = process.env.PORT || 9876;
 
 app.use(express.static(path.join(__dirname, "../public")));
 
+app.use(
+  session({
+    secret: "I'm yo dad"
+  })
+);
+
 let checkUser = (req, res, next) => {
   console.log(req.session);
   if (req.session.user) {
@@ -36,7 +42,10 @@ app.get("/login", (req, res) => {
   database.User.find({ email: req.query.email })
     .then(result => {
       let type = "Parent";
+      //wrap in some condition to avoid component did mount
       req.session.regenerate(() => {
+        console.log("inside regenerate", req.query.username);
+
         req.session.user = req.query.username;
       });
       if (req.query.email.includes(".edu")) {
