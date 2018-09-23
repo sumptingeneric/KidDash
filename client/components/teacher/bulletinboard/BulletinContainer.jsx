@@ -14,7 +14,7 @@ class BulletinContainer extends React.Component {
 
   getFilesFromDatabase() {
     axios
-      .get("http://localhost:8079/api/files")
+      .get("/api/files")
       .then(response => {
         this.setState({
           files: response.data

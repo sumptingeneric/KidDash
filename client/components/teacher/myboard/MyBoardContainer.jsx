@@ -14,7 +14,7 @@ class MyBoardContainer extends React.Component {
 
   getFilesFromDatabase() {
     axios
-      .get("http://localhost:8079/api/files")
+      .get("/api/files")
       .then(response => {
         this.setState({
           files: response.data
@@ -28,7 +28,7 @@ class MyBoardContainer extends React.Component {
   deleteFile(file) {
     let fileString = file + "";
     axios
-      .delete("http://localhost:8079/api/file", {
+      .delete("/api/file", {
         data: { id: fileString }
       })
       .then(() => this.getFilesFromDatabase());
