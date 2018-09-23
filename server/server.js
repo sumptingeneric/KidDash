@@ -45,9 +45,9 @@ app.get("/login", (req, res) => {
       //wrap in some condition to avoid component did mount
       req.session.regenerate(() => {
         console.log("inside regenerate", req.query.username);
-
         req.session.user = req.query.username;
       });
+
       if (req.query.email.includes(".edu")) {
         type = "Teacher";
       }
