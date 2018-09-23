@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-const moment = require('moment');
+import Modal from "./modal.jsx";
 
+const moment = require('moment');
+const axios = require('axios');
 
 //Material UI Imports
 import Card from '@material-ui/core/Card';
@@ -21,42 +23,90 @@ class Tile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isPinned: false,
-      isUseful: false
+      isPinned: this.props.tile.pinnedBy.includes("currentUserId"),
+      isUseful: this.props.tile.likedBy.includes("currentUserId"), 
+      showModal: false
     }
+    this.updatePin = this.updatePin.bind(this);
+    this.updateUseful = this.updateUseful.bind(this);
     this.togglePin = this.togglePin.bind(this);
     this.toggleUseful = this.toggleUseful.bind(this);
+    this.toggleShowModal = this.toggleShowModal.bind(this);
+  }
+
+  updatePin(tile) {
+    let pinnedBy = tile.pinnedBy;
+    if (!this.state.isPinned) {
+      pinnedBy.push("currentUserId");
+    } else {
+      let indexOfUserToRemove = pinnedBy.indexOf("currentUserId");
+      pinnedBy.splice(indexOfUserToRemove, 1);   
+    }
+    axios.put('/api/file', {
+      id: tile._id,
+      update: {
+        pinnedBy: pinnedBy
+      }
+    })
+      .then(res => {
+        this.togglePin();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  updateUseful(tile) {
+    let likedBy = tile.likedBy;
+    if (!this.state.isUseful) {
+      likedBy.push("currentUserId");
+    } else {
+      let indexOfUserToRemove = likedBy.indexOf("currentUserId");
+      likedBy.splice(indexOfUserToRemove, 1);   
+    }
+    axios.put('/api/file', {
+      id: tile._id,
+      update: {
+        likedBy: likedBy
+      }
+    })
+      .then(res => {
+        this.toggleUseful();
+      })
+      .catch(err => {
+        console.log(err);
+      });    
   }
 
   togglePin() {
-    if (!this.state.isPinned) {
-      this.setState({
-        isPinned: true
-      });
-    } else {
-      this.setState({
-        isPinned: false
-      });
-    }
-  }
+    this.setState({
+      isPinned: !this.state.isPinned
+    });
+  }  
  
   toggleUseful() {
-    if (!this.state.isUseful) {
-      this.setState({
-        isUseful: true
-      });
-    } else {
-      this.setState({
-        isUseful: false
-      });
-    }
+    this.setState({
+      isUseful: !this.state.isUseful
+    });
+  }  
+
+  toggleShowModal() {
+    this.setState({
+      showModal: !this.state.showModal
+    });
   }
 
   render() {
     return (
       <Card title={this.props.tile.category} className="card" style={{maxWidth: 345}} elevation={4}>
         <CardActionArea style={{display:'flex', justifyContent: "space-around"}} >
-          <CardMedia className="media" style={{height: 190, width: 345, objectFit: 'cover'}} image={this.props.tile.imgUrl} component="img"/>
+          <CardMedia 
+            className="media" 
+            style={{height: 190, width: 345, objectFit: 'cover'}} 
+            image={this.props.tile.imgUrl} 
+            component="img"
+            onClick={this.toggleShowModal}
+          />
         </CardActionArea>
         <CardContent>
           <Typography id='cardCaption' gutterBottom variant="headline" component="h2">
@@ -70,10 +120,10 @@ class Tile extends Component {
           <Button size="small" color="primary" href={this.props.tile.docUrl}>
             Open Document
           </Button>
-          <IconButton aria-label="Add to favorites" onClick={this.toggleUseful}>
+          <IconButton aria-label="Add to favorites" onClick={() => this.updateUseful(this.props.tile)} >
             {this.state.isUseful ? <Favorite /> : <FavoriteBorder />}
           </IconButton>
-          <IconButton aria-label="Bookmark Border" onClick={this.togglePin} >
+          <IconButton aria-label="Bookmark Border" onClick={() => this.updatePin(this.props.tile)} >
             {this.state.isPinned ? <Bookmark /> : <BookmarkBorder />}
           </IconButton>
         </CardActions>
