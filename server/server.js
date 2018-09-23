@@ -4,12 +4,12 @@ const session = require("express-session");
 const app = express();
 const database = require("../database");
 const bodyParser = require("body-parser");
-
+const cookieParser = require("cookie-parser");
 // accommodates connection to either Heroku or localhost
 let port = process.env.PORT || 9876;
 
 app.use(express.static(path.join(__dirname, "../public")));
-
+// app.use(cookieParser());
 app.use(
   session({
     secret: "I'm yo dad"
@@ -27,27 +27,16 @@ let checkUser = (req, res, next) => {
   }
 };
 
-// app.get("/checkUser", (req, res, next) => {
-//   console.log(req.session);
-//   if (req.session.user) {
-//     res.send("Logged In");
-//   } else {
-//     console.log("checkUser FAILED!");
-//     req.session.error = "Access denied!";
-//     res.send("Logged Out");
-//   }
-// });
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.get("/login", (req, res) => {
   database.User.find({ email: req.query.email })
     .then(result => {
       let type = "Parent";
       //wrap in some condition to avoid component did mount
-      req.session.regenerate(() => {
-        console.log("inside regenerate", req.query.username);
-        req.session.user = req.query.username;
-      });
-
+      req.session.user = req.query.username;
+      delete req.session.error;
       if (req.query.email.includes(".edu")) {
         type = "Teacher";
       }
@@ -69,10 +58,9 @@ app.get("/login", (req, res) => {
     });
 });
 
-app.use(express.static(path.join(__dirname, "../public")));
-
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.get("/logout", (req, res) => {
+  req.session.destroy();
+});
 // This GET request handler returns all entries from the database
 app.get("/api/files/", checkUser, (request, response) => {
   database.getFiles(undefined, response);

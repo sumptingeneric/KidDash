@@ -8,12 +8,11 @@ import Container from "./components/container.jsx";
 import Admin from "./components/admin.jsx";
 import Login from "./components/login.jsx";
 import SignIn from "./components/signin.jsx";
-
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: "signin",
+      view: "",
       files: [],
       username: "",
       email: "",
@@ -23,7 +22,7 @@ class App extends Component {
     this.changeView = this.changeView.bind(this);
     this.renderView = this.renderView.bind(this);
     this.handleSignIn = this.handleSignIn.bind(this);
-    this.handleSignOut = this.handleSignOut.bind(this);
+    this.handleLogOut = this.handleLogOut.bind(this);
   }
 
   getFilesFromDatabase(category) {
@@ -53,7 +52,7 @@ class App extends Component {
     });
     this.changeView("Home");
   }
-  handleSignOut() {
+  handleLogOut() {
     this.setState({
       username: "",
       email: "",
@@ -79,14 +78,20 @@ class App extends Component {
     if (view === "Admin") {
       return (
         <div>
-          <Header changeView={this.changeView} />
+          <Header
+            handleLogOut={this.handleLogOut}
+            changeView={this.changeView}
+          />
           <Admin />
         </div>
       );
-    } else if (view === "signin") {
+    } else if (this.state.username === "") {
       return (
         <div>
-          <Header changeView={this.changeView} />
+          <Header
+            chandleLogOut={this.handleLogOut}
+            hangeView={this.changeView}
+          />
           <SignIn
             handleSignIn={this.handleSignIn}
             changeView={this.changeView}
@@ -96,7 +101,10 @@ class App extends Component {
     } else if (view === "Login") {
       return (
         <div>
-          <Header changeView={this.changeView} />
+          <Header
+            handleLogOut={this.handleLogOut}
+            changeView={this.changeView}
+          />
           <Login />
         </div>
       );
@@ -104,6 +112,7 @@ class App extends Component {
       return (
         <div>
           <Header
+            handleLogOut={this.handleLogOut}
             getFiles={this.getFilesFromDatabase}
             view={this.state.view}
             changeView={this.changeView}
