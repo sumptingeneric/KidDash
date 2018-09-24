@@ -10,11 +10,13 @@
     "format:check": "prettier --list-different \"client/**/*.{js,jsx,css,json}\"",
     "lint": "./node_modules/eslint/bin/eslint.js \"**/*.{js,jsx}\"",
     "lint:fix": "./node_modules/eslint/bin/eslint.js --fix \"**/*.{js,jsx}\"",
+    "server": "nodemon ./server/server.js",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:update": "jest -u",
     "build": "webpack --mode production",
-    "start": "webpack- dev-server --mode development --open & nodemon ./server/server.js"
+    "start": "node ./server/server.js",
+    "postinstall": "webpack --mode production"
   },
   "jest": {
     "snapshotSerializers": [
