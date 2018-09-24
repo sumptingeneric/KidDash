@@ -14,8 +14,9 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:update": "jest -u",
-    "build": "webpack --mode production --watch",
-    "start": "webpack-dev-server --mode development --open & nodemon ./server/server.js"
+    "build": "webpack --mode production",
+    "start": "node ./server/server.js",
+    "postinstall": "webpack --mode production"
   },
   "jest": {
     "snapshotSerializers": [
