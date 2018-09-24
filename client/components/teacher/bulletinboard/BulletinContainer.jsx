@@ -7,8 +7,7 @@ class BulletinContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      files: [],
-      role: "teacher"
+      files: []
     };
     this.getFilesFromDatabase();
   }
@@ -30,7 +29,7 @@ class BulletinContainer extends React.Component {
   render() {
     return (
       <div>
-        <Container files={this.state.files} role={this.state.role} />
+        <Container files={this.state.files} />
       </div>
     );
   }

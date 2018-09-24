@@ -6,7 +6,8 @@ class MyBoardContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      files: []
+      files: [],
+      role: "teacher"
     };
     this.getFilesFromDatabase();
     this.deleteFile = this.deleteFile.bind(this);
@@ -37,7 +38,11 @@ class MyBoardContainer extends React.Component {
   render() {
     return (
       <div>
-        <Container files={this.state.files} deleteFile={this.deleteFile} />
+        <Container
+          files={this.state.files}
+          deleteFile={this.deleteFile}
+          role={this.state.role}
+        />
       </div>
     );
   }
