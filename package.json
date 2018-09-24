@@ -14,7 +14,7 @@
     "test:coverage": "jest --coverage",
     "test:update": "jest -u",
     "build": "./node_modules/webpack/bin/webpack.js -d --watch",
-    "start": "node ./server/server.js"
+    "start": "nodemon ./server/server.js"
   },
   "jest": {
     "snapshotSerializers": [
