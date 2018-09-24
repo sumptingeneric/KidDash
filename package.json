@@ -6,8 +6,6 @@
   "main": "index.js",
   "scripts": {
     "db:seed": "node database/seedDatabase.js",
-    "devOld": "webpack-dev-server --open --hot --mode development & nodemon ./server/server.js",
-    "dev": "webpack --mode development --watch & nodemon ./server/server.js",
     "format": "prettier --write \"client/**/*.{js,jsx,css,json}\"",
     "format:check": "prettier --list-different \"client/**/*.{js,jsx,css,json}\"",
     "lint": "./node_modules/eslint/bin/eslint.js \"**/*.{js,jsx}\"",
