@@ -43,7 +43,8 @@ class Admin extends React.Component {
       caption: "",
       value: "",
       category: "Subject",
-      imgUrl: "default",
+      imgUrl:
+        "https://www.thetruthaboutcars.com/wp-content/uploads/2015/08/free-candy-610x235.jpg",
       pickImg: "",
       anchor: null,
       setImg: false,
