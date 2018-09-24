@@ -94,7 +94,7 @@ const saveUser = (data, response) => {
       response.status(400).send(err);
       return;
     }
-    response.status(200).send(newUser);
+    response.status(200).send([newUser]);
   });
 };
 
@@ -152,8 +152,7 @@ module.exports.updateFile = updateFile;
 module.exports.updateUser = updateUser;
 module.exports.deleteFile = deleteFile;
 module.exports.deleteUser = deleteUser;
-
 module.exports.User = User;
 module.exports.File = File;
-
 module.exports.db = db;
+//usermodel

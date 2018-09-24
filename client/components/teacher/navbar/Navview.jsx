@@ -7,6 +7,8 @@ import { Typography } from "@material-ui/core";
 import { Link } from "@reach/router";
 import Upload from "@material-ui/icons/CloudUpload";
 import Chart from "@material-ui/icons/InsertChart";
+import axios from "axios";
+
 const drawerWidth = 740;
 
 const styles = theme => ({
@@ -79,7 +81,25 @@ const styles = theme => ({
   }
 });
 
-const Navview = () => {
+const Navview = props => {
+  function signOut() {
+    if(gapi.auth2 === undefined) {
+      console.log("User signed out.");
+      axios.get("/logout").then(() => {
+        props.handleLogOut();
+        document.location.reload(true);
+      });
+    } else {
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function() {
+        console.log("User signed out.");
+        axios.get("/logout").then(() => {
+          props.handleLogOut();
+          document.location.reload(true);
+        });
+      });
+    }
+  }
   return (
     <div className={styles.root}>
       <div className={styles.appFrame}>
@@ -122,6 +142,7 @@ const Navview = () => {
                   Bulletin Board
                 </Button>
               </Link>
+              <Button onClick={() => signOut()}>Logout</Button>
               <Link to="upload" style={{ textDecoration: "none" }}>
                 <Upload
                   color="action"

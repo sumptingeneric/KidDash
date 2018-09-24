@@ -1,55 +1,54 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import axios from 'axios';
-import { defaultFormatUtc } from 'moment';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import axios from "axios";
+import { defaultFormatUtc } from "moment";
 import Login from "./login.jsx";
 
-
 // ---------material-ui
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem'
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
-import Switch from '@material-ui/core/Switch';
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import { withStyles } from "@material-ui/core/styles";
+import Switch from "@material-ui/core/Switch";
 
 const menuItems = [
   {
-    display: 'Newsletters',
-    value: 'Newsletters',
+    display: "Newsletters",
+    value: "Newsletters"
   },
   {
-    display: 'Sports',
-    value: 'Sports',
+    display: "Sports",
+    value: "Sports"
   },
   {
-    display: 'Teacher Notes',
-    value: 'Teachers_Notes',
+    display: "Teacher Notes",
+    value: "Teachers_Notes"
   },
   {
-    display: 'FAQ',
-    value: 'FAQ',
+    display: "FAQ",
+    value: "FAQ"
   },
   {
-    display: 'School Events',
-    value: 'School_Events',
-  }, 
-]
+    display: "School Events",
+    value: "School_Events"
+  }
+];
 
 class Admin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      caption: '',
-      value: '',
-      category: 'Subject',
-      imgUrl: 'default',
-      pickImg: '',
+      caption: "",
+      value: "",
+      category: "Subject",
+      imgUrl: "default",
+      pickImg: "",
       anchor: null,
       setImg: false,
       ourImg: false
-    }
+    };
 
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -65,71 +64,78 @@ class Admin extends React.Component {
   }
 
   setAnchor(event) {
-    this.setState({anchor: event.currentTarget});
-  };
+    this.setState({ anchor: event.currentTarget });
+  }
 
   unsetAnchor() {
-    this.setState({anchor: null});
-  };
+    this.setState({ anchor: null });
+  }
 
   setcaption(event) {
-    this.setState({caption: event.target.value});
-  };
+    this.setState({ caption: event.target.value });
+  }
 
   setCategory(value) {
     let newThis = this;
-    return function () {
+    return function() {
       newThis.setState({
         category: value,
         anchor: null
       });
-    }
-  };
+    };
+  }
 
   setUrl(event) {
-    this.setState({imgUrl: event.target.value});
-  };
+    this.setState({ imgUrl: event.target.value });
+  }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
-  };
+    this.setState({ value: event.target.value });
+  }
 
   selectImg() {
-    this.setState({ 
-      pickImg: 'pickImg',
+    this.setState({
+      pickImg: "pickImg",
       setImg: !this.state.setImg
     });
-  };
+  }
 
   setOurImg() {
-    this.setState({ 
-      pickImg: 'our',
-      ourImg: !this.state.ourImg 
+    this.setState({
+      pickImg: "our",
+      ourImg: !this.state.ourImg
     });
-  };
+  }
 
   renderImgInput() {
     const { pickImg, setImg } = this.state;
 
-    if (pickImg === 'pickImg' && setImg === true) {
+    if (pickImg === "pickImg" && setImg === true) {
       return (
-        <p>Paste url to the right:
-          <input style={{marginLeft: 5, maxWidth: 300, height: 8, padding: 5, borderRadius: 5}} 
-          type="text" 
-          placeholder='Your image url link' 
-          onChange={this.setUrl}></input>
+        <p>
+          Paste url to the right:
+          <input
+            style={{
+              marginLeft: 5,
+              maxWidth: 300,
+              height: 8,
+              padding: 5,
+              borderRadius: 5
+            }}
+            type="text"
+            placeholder="Your image url link"
+            onChange={this.setUrl}
+          />
         </p>
-      )
-    } 
+      );
+    }
   }
 
   renderOurImgInput() {
     const { pickImg, ourImg } = this.state;
 
-    if (pickImg === 'our' && ourImg === true)
-      return (
-        <p>We will upload a image for you</p>
-      )
+    if (pickImg === "our" && ourImg === true)
+      return <p>We will upload a image for you</p>;
   }
 
   handleClick() {
@@ -144,38 +150,47 @@ class Admin extends React.Component {
     console.log(`send off url-->: ${fileInfo.doc_url}`);
     console.log(`send off img_url-->: ${fileInfo.img_url}`);
 
-    axios.post('/api/file', {
-      board: this.state.category,
-      caption: this.state.caption,
-      docUrl: this.state.value,
-      imgUrl: this.state.imgUrl
-    })
+    axios
+      .post("/api/file", {
+        board: this.state.category,
+        caption: this.state.caption,
+        docUrl: this.state.value,
+        imgUrl: this.state.imgUrl
+      })
       .then(res => {
-        console.log(res)
-        alert('Document uploaded have a good day.')
+        console.log(res);
+        alert("Document uploaded have a good day.");
       });
-    }
+  }
 
   render() {
     const { anchor } = this.state;
 
     return (
       <div>
-        <Paper style={{ width: 600, marginLeft: 'auto', marginRight: 'auto', padding: 15 }}>
-          <Typography variant='Headline' gutterBottom>            
+        <Paper
+          style={{
+            width: 600,
+            marginLeft: "auto",
+            marginRight: "auto",
+            padding: 15
+          }}
+        >
+          <Typography variant="Headline" gutterBottom>
             <h1>Hello {this.props.username},</h1>
             <h2>Please follow the steps to upload a document.</h2>
+
             <h3>Step 1:</h3>
             <label>
               Pick a category:
               <div>
                 <Button
-                  aria-owns={anchor ? 'simple-menu' : null}
+                  aria-owns={anchor ? "simple-menu" : null}
                   aria-haspopup="true"
                   onClick={this.setAnchor}
                 >
                   {this.state.category}
-                </Button>               
+                </Button>
                 <Menu
                   id="Category"
                   anchorEl={anchor}
@@ -183,73 +198,94 @@ class Admin extends React.Component {
                   onClose={this.unsetAnchor}
                 >
                   {menuItems.map(item => (
-                    <MenuItem 
-                      onClick={this.setCategory(item.value)}
-                    >{item.display}
+                    <MenuItem onClick={this.setCategory(item.value)}>
+                      {item.display}
                     </MenuItem>
                   ))}
                 </Menu>
               </div>
             </label>
-            <br></br>
+            <br />
             <h3>Step 2</h3>
             <label>
               Add the document title:
-              <input style={{marginLeft: 5, maxWidth: 300, height: 8, padding: 5, borderRadius: 5}}
-                type='text'
-                placeholder='Input document name'
-                onChange={this.setcaption}>
-              </input>
+              <input
+                style={{
+                  marginLeft: 5,
+                  maxWidth: 300,
+                  height: 8,
+                  padding: 5,
+                  borderRadius: 5
+                }}
+                type="text"
+                placeholder="Input document name"
+                onChange={this.setcaption}
+              />
             </label>
-            <br></br>
-            <h3>Step 3</h3>            
+            <br />
+            <h3>Step 3</h3>
             <label>
               Upload the document URL:
-              <input style={{marginLeft: 5, maxWidth: 300, height: 8, padding: 5, borderRadius: 5}} 
+              <input
+                style={{
+                  marginLeft: 5,
+                  maxWidth: 300,
+                  height: 8,
+                  padding: 5,
+                  borderRadius: 5
+                }}
                 type="text"
                 value={this.state.value}
                 onChange={this.handleChange}
-                placeholder='File url for upload' />
+                placeholder="File url for upload"
+              />
             </label>
-            <br></br>
-            <h4>Step 4</h4>           
-              <label>                               
-                  <input style={{marginLeft: 5, height: 20, width: 20, margin: 'auto', verticalAlign:'bottom'}}
-                    type='checkBox'
-                    onClick={this.selectImg}>
-              </input>&nbsp;
-              Upload my own image
-                  
-
-                </label>
+            <br />
+            <h4>Step 4</h4>
+            <label>
+              <input
+                style={{
+                  marginLeft: 5,
+                  height: 20,
+                  width: 20,
+                  margin: "auto",
+                  verticalAlign: "bottom"
+                }}
+                type="checkBox"
+                onClick={this.selectImg}
+              />
+              &nbsp; Upload my own image
+            </label>
             {this.renderImgInput()}
-                <div>
-                <br />
-                  <label>
-                 
-                    <input style={{marginLeft: 5, height: 20, width: 20, margin: 'auto', verticalAlign: 'bottom'}}
-                      type='checkBox'
-                      onClick={this.setOurImg}>
-                </input>&nbsp;                       
-              Let us pick an image            
-                  </label>
+            <div>
+              <br />
+              <label>
+                <input
+                  style={{
+                    marginLeft: 5,
+                    height: 20,
+                    width: 20,
+                    margin: "auto",
+                    verticalAlign: "bottom"
+                  }}
+                  type="checkBox"
+                  onClick={this.setOurImg}
+                />
+                &nbsp; Let us pick an image
+              </label>
               {this.renderOurImgInput()}
-                </div>
-            <br></br>          
+            </div>
+            <br />
             <h3>Final Step</h3>
-            <Button
-              onClick={this.handleClick}
-              variant="contained"
-            >
-              Submit document 
+            <Button onClick={this.handleClick} variant="contained">
+              Submit document
             </Button>
           </Typography>
         </Paper>
       </div>
-    )
+    );
   }
 }
-
 
 export default Admin;
 
@@ -258,6 +294,5 @@ export default Admin;
  * material-ui was used to create the category menu and the final step button
  * menuItems object is used to render the menu items in the Category popout menu
  * renderImgInput and renderOurImgInput are the check boxed in step 4 based on what is click
- * setCategory sets a varable this to newThis because 'this' was losing value and thats how i fixed it 
+ * setCategory sets a varable this to newThis because 'this' was losing value and thats how i fixed it
  */
-
