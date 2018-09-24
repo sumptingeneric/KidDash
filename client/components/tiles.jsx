@@ -17,6 +17,7 @@ import Favorite from "@material-ui/icons/Favorite";
 import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
 import BookmarkBorder from "@material-ui/icons/BookmarkBorder";
 import Bookmark from "@material-ui/icons/Bookmark";
+import Delete from "@material-ui/icons/DeleteOutline";
 
 class Tile extends Component {
   constructor(props) {
@@ -97,6 +98,15 @@ class Tile extends Component {
     });
   }
 
+  role() {
+    if (this.props.role === "teacher") {
+      return (
+        <IconButton>
+          <Delete onClick={() => this.props.deleteFile(this.props.tile._id)} />
+        </IconButton>
+      );
+    }
+  }
   render() {
     return (
       <Card
@@ -150,6 +160,7 @@ class Tile extends Component {
           >
             {this.state.isPinned ? <Bookmark /> : <BookmarkBorder />}
           </IconButton>
+          {this.role()}
         </CardActions>
         {this.state.showModal ? (
           <Modal>
