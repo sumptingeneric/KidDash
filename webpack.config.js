@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   module: {
@@ -16,7 +17,8 @@ module.exports = {
         test: /\.html$/,
         use: [
           {
-            loader: "html-loader"
+            loader: "html-loader",
+            options: { minimize: true }
           }
         ]
       },
@@ -34,6 +36,10 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader"]
       }
     ]
   },
@@ -42,15 +48,14 @@ module.exports = {
       template: "./src/index.html",
       filename: "./index.html"
     }),
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+      chunkFilename: "[id].css"
+    }),
     new CopyWebpackPlugin([
       {
         from: "src/Free-Chalkboard-Backgrounds.jpg",
         to: "Free-Chalkboard-Backgrounds.jpg",
-        toType: "file"
-      },
-      {
-        from: "src/style.css",
-        to: "style.css",
         toType: "file"
       }
     ])

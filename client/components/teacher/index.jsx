@@ -4,6 +4,8 @@ import ReactDOM from "react-dom";
 import Navview from "./navbar/Navview.jsx";
 import BulletinContainer from "./bulletinboard/BulletinContainer.jsx";
 import MyBoard from "./myboard/MyBoardContainer.jsx";
+import style from "../../../src/style.css";
+
 const TeacherApp = () => {
   return (
     <div>
