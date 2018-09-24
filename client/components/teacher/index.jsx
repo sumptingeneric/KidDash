@@ -6,10 +6,10 @@ import BulletinContainer from "./bulletinboard/BulletinContainer.jsx";
 import MyBoard from "./myboard/MyBoardContainer.jsx";
 import style from "../../../src/style.css";
 
-const TeacherApp = () => {
+const TeacherApp = props => {
   return (
     <div>
-      <Navview />
+      <Navview handleLogOut={props.handleLogOut} />
       <Router>
         <MyBoard path="/" />
         {/* <Upload path="upload/*" />

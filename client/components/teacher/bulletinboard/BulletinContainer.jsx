@@ -2,6 +2,7 @@ import React from "react";
 import Container from "../../container.jsx";
 import axios from "axios";
 
+//should only render bulletinBOard
 class BulletinContainer extends React.Component {
   constructor(props) {
     super(props);

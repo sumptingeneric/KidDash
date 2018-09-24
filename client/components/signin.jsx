@@ -21,7 +21,7 @@ class SignIn extends React.Component {
         theme: "light",
         onsuccess: this.onSignIn
       });
-    }, 500);
+    }, 0);
   }
 
   onSignIn(googleUser) {
@@ -44,7 +44,10 @@ class SignIn extends React.Component {
           );
           this.props.changeView("Home");
         } else {
-          ReactDOM.render(<Teacher />, document.getElementById("App"));
+          ReactDOM.render(
+            <Teacher handleLogOut={this.props.handleLogOut} />,
+            document.getElementById("App")
+          );
         }
       })
       .catch(err => {
@@ -67,7 +70,10 @@ class SignIn extends React.Component {
           );
           this.props.changeView("Home");
         } else {
-          ReactDOM.render(<Teacher />, document.getElementById("App"));
+          ReactDOM.render(
+            <Teacher handleLogOut={this.props.handleLogOut} />,
+            document.getElementById("App")
+          );
         }
       }
     });
@@ -76,8 +82,8 @@ class SignIn extends React.Component {
   render() {
     return (
       <div>
-        {this.renderView()}
         <div id="my-signin2" />
+        {this.renderView()}
       </div>
     );
   }

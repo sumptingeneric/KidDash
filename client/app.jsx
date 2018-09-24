@@ -89,6 +89,7 @@ class App extends Component {
             changeView={this.changeView}
           />
           <SignIn
+            handleLogOut={this.handleLogOut}
             handleSignIn={this.handleSignIn}
             changeView={this.changeView}
           />
