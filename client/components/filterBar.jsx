@@ -8,8 +8,9 @@ const FilterBar = props => {
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function() {
       console.log("User signed out.");
-      axios.get("/logout");
-      props.handleLogOut();
+      axios.get("/logout").then(() => {
+        props.handleLogOut();
+      });
     });
   }
   return (

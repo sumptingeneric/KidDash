@@ -64,7 +64,7 @@ module.exports = {
     contentBase: path.join(__dirname, "public"),
     port: 9876
   },
-  entry: "./client/components/teacher/index.jsx",
+  entry: "./client/app.jsx",
   output: {
     path: path.resolve(__dirname, "public"),
     filename: "bundle.js"

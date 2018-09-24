@@ -1,8 +1,13 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import axios from "axios";
+import Teacher from "./teacher/index.jsx";
 class SignIn extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      session: ""
+    };
     this.onSignIn = this.onSignIn.bind(this);
   }
 
@@ -16,7 +21,7 @@ class SignIn extends React.Component {
         theme: "light",
         onsuccess: this.onSignIn
       });
-    }, 0);
+    }, 500);
   }
 
   onSignIn(googleUser) {
@@ -29,25 +34,49 @@ class SignIn extends React.Component {
         }
       })
       .then(res => {
-        this.props.handleSignIn(
-          profile.getName(),
-          profile.getEmail(),
-          profile.getImageUrl()
-        );
-        this.props.changeView("Home");
-
-        console.log(res.data);
+        console.log("TYPE:", res.data[0].type);
         console.log("REQUEST SENT");
+        if (res.data[0].type === "Parent") {
+          this.props.handleSignIn(
+            profile.getName(),
+            profile.getEmail(),
+            profile.getImageUrl()
+          );
+          this.props.changeView("Home");
+        } else {
+          ReactDOM.render(<Teacher />, document.getElementById("App"));
+        }
       })
       .catch(err => {
         throw err;
       });
-    // this.props.handleSignIn(profile.getEmail());
+  }
+
+  // render login or parent view or teacher view.
+  renderView() {
+    axios.get("/session").then(res => {
+      if (res.data[0] === undefined) {
+        console.log("No SESSION!");
+      } else {
+        console.log("IN SESSION!");
+        if (res.data[0].type === "Parent") {
+          this.props.handleSignIn(
+            res.data[0].username,
+            res.data[0].email,
+            null
+          );
+          this.props.changeView("Home");
+        } else {
+          ReactDOM.render(<Teacher />, document.getElementById("App"));
+        }
+      }
+    });
   }
 
   render() {
     return (
       <div>
+        {this.renderView()}
         <div id="my-signin2" />
       </div>
     );

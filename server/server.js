@@ -4,7 +4,7 @@ const session = require("express-session");
 const app = express();
 const database = require("../database");
 const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
+//const cookieParser = require("cookie-parser");
 // accommodates connection to either Heroku or localhost
 let port = process.env.PORT || 9876;
 
@@ -29,6 +29,16 @@ let checkUser = (req, res, next) => {
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.get("/session", (req, res) => {
+  if (req.session.user) {
+    database.User.find({ username: req.session.user }).then(result => {
+      res.send(result);
+    });
+  } else {
+    res.send();
+  }
+});
 
 app.get("/login", (req, res) => {
   database.User.find({ email: req.query.email })
@@ -59,7 +69,9 @@ app.get("/login", (req, res) => {
 });
 
 app.get("/logout", (req, res) => {
-  req.session.destroy();
+  req.session.destroy(() => {
+    res.send();
+  });
 });
 // This GET request handler returns all entries from the database
 app.get("/api/files/", checkUser, (request, response) => {

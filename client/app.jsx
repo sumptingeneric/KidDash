@@ -85,8 +85,8 @@ class App extends Component {
       return (
         <div>
           <Header
-            chandleLogOut={this.handleLogOut}
-            hangeView={this.changeView}
+            handleLogOut={this.handleLogOut}
+            changeView={this.changeView}
           />
           <SignIn
             handleSignIn={this.handleSignIn}

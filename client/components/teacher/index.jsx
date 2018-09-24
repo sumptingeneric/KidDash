@@ -20,4 +20,5 @@ const TeacherApp = () => {
   );
 };
 
-ReactDOM.render(<TeacherApp />, document.getElementById("App"));
+//ReactDOM.render(<TeacherApp />, document.getElementById("App"));
+export default TeacherApp;
