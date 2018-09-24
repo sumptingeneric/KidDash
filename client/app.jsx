@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import axios from "axios";
 
 import Header from "./components/header.jsx";
-import FilterBar from "./components/filterBar.jsx";
 import Container from "./components/container.jsx";
 import Admin from "./components/admin.jsx";
 import Login from "./components/login.jsx";
@@ -62,9 +61,6 @@ class App extends Component {
 
   componentDidMount() {
     this.getFilesFromDatabase();
-    // if (this.state.username !== '') {
-    //   this.changeView('Home');
-    // }
   }
 
   changeView(option) {

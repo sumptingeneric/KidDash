@@ -30,17 +30,6 @@
   <div id="modal"></div>
   <div id='App'></div>
   <script src="bundle.js"></script>
-  <div style="margin-top: 500px">
-    <a href="#" onclick="signOut();">Sign out</a>
-  </div>
-  <script>
-    function signOut() {
-      var auth2 = gapi.auth2.getAuthInstance();
-      auth2.signOut().then(function () {
-        console.log('User signed out.');
-      });
-    }
-  </script>
 </body>
 
 </html>
