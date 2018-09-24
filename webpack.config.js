@@ -47,6 +47,11 @@ module.exports = {
         from: "src/Free-Chalkboard-Backgrounds.jpg",
         to: "Free-Chalkboard-Backgrounds.jpg",
         toType: "file"
+      },
+      {
+        from: "src/style.css",
+        to: "style.css",
+        toType: "file"
       }
     ])
   ],
