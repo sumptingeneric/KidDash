@@ -98,7 +98,7 @@ class Tile extends Component {
     });
   }
 
-  role() {
+  renderTeacherDeleteCard() {
     if (this.props.role === "teacher") {
       return (
         <IconButton>
@@ -160,7 +160,7 @@ class Tile extends Component {
           >
             {this.state.isPinned ? <Bookmark /> : <BookmarkBorder />}
           </IconButton>
-          {this.role()}
+          {this.renderTeacherDeleteCard()}
         </CardActions>
         {this.state.showModal ? (
           <Modal>
