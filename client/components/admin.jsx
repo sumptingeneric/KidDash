@@ -43,7 +43,8 @@ class Admin extends React.Component {
       caption: "",
       value: "",
       category: "Subject",
-      imgUrl: "default",
+      imgUrl:
+        "http://www.jagatpromo.com/wp-content/uploads/2014/09/kiddash.png",
       pickImg: "",
       anchor: null,
       setImg: false,
